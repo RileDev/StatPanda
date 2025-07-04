@@ -44,7 +44,7 @@ export class FrequencyDistribution {
   }
 
   get k() {
-    return this.#hasIntervals ? Math.round(1 + 3.3 * Math.log10(this.count)) : Object.keys(this.getFrequencies()).length;
+    return this.#hasIntervals ? Math.ceil(1 + 3.3 * Math.log10(this.count)) : Object.keys(this.getFrequencies()).length;
   }
 
   get i() {

@@ -16,3 +16,9 @@
 .display{
     display: block;
 }
+
+@media only screen and (max-width: 1024px) {
+    .input-sample-count, .interval-option{
+        width: 30%;
+    }
+}

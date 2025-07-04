@@ -4,7 +4,6 @@ const tableBody = document.querySelector(".table-wrapper tbody");
 export function displayTable(data){
     showTable();
     tableBody.innerHTML = "";
-    console.log(data);
     
     const rows = data["dataset"].k;
     const hasIntervals = data["dataset"].hasIntervals;

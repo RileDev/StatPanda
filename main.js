@@ -23,8 +23,8 @@ generateBtn.addEventListener("click", () => {
         14, 18, 10, 5, 3, 2, 1, 21, 19, 11
     ];
 
-    // distribution = new FrequencyDistribution(fetchData(), intervalCb.checked);    
-    distribution = new FrequencyDistribution(data, intervalCb.checked);    
+    distribution = new FrequencyDistribution(fetchData(), intervalCb.checked);    
+    // distribution = new FrequencyDistribution(data, intervalCb.checked);    
     displayTable(distribution.json);
 
     
