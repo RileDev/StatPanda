@@ -21,7 +21,7 @@ export function displayGraph(dist) {
   }
 
   chartInstance = new Chart(ctx, {
-    type: "bar",
+    type: "line",
     data: {
       labels: labels,
       datasets: [
