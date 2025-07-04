@@ -2,6 +2,7 @@ import { FrequencyDistribution } from "./js/classes/frequency-distribution.js";
 import { generateSampleFields, fetchData } from "./js/samples.js"
 import { displayTable } from "./js/table-render.js";
 import { readFromFile } from "./js/file-stream.js";
+import { displayGraph } from "./js/graph-render.js";
 
 
 const addBtn = document.getElementById("addBtn");
@@ -29,6 +30,5 @@ generateBtn.addEventListener("click", () => {
     
     distribution = new FrequencyDistribution(data, intervalCb.checked);    
     displayTable(distribution.json);
-
-    
+    displayGraph(distribution.json);
 })

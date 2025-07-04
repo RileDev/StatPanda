@@ -9,7 +9,7 @@
     width: 15%;
 }
 
-.table-wrapper{
+.table-wrapper, .graph-wrapper{
     display: none;
 }
 
