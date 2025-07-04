@@ -46,7 +46,13 @@
             <p>This app helps you calculate and visualize relative frequencies and other basic statistical measures from your data.</p>
         </div>
 
-        <div class="border border-1 rounded" id="userControls">
+        <div class="border border-1 rounded p-3" id="userControls">
+            <div class="input-group mb-3 interval-option">
+                <span class="input-group-text" id="nSamplesSpan">Intervals </span>
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" type="checkbox" value="" id="intervalCb" aria-label="Checkbox if we should represent data with intervals">
+                </div>
+            </div>
             <div class="input-group mb-3 input-sample-count">
                 <span class="input-group-text" id="nSamplesSpan">N: </span>
                 <input type="number" min="1" max="100" class="form-control" id="nSamples">
@@ -54,9 +60,29 @@
             </div>
             
             <div class="input-group mb-3 input-samples">
-
+            </div>
+            
+            <div class="input-group mb-3 button-controls">
+                <button type="button" id="generateBtn" class="btn btn-primary">Generate</button>
             </div>
 
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Items</th>
+                            <th>Frequency</th>
+                            <th>Cumulative Below</th>
+                            <th>Cumulative Above</th>
+                            <th>Relative Frequency (%)</th>
+                            <th>Cumulative Frequency (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
             
         </div>
     </main>
