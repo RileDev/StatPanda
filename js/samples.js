@@ -29,3 +29,18 @@ export function fetchData(){
 export function clearSampleFields() {
     inputsWrapper.innerHTML = "";
 }
+
+export function displayUploadedSamples(arr){
+    inputsWrapper.innerHTML = "";
+    for(let i = 0; i < arr.length; i++){
+        const inputEl = document.createElement("input");
+        inputEl.setAttribute("type", "number");
+        inputEl.classList.add(`form-control`);
+        inputEl.classList.add(`sample`);
+        inputEl.classList.add(`sample-${i}`);
+        inputEl.style.width = "100px";
+        inputEl.style.maxWidth = "100px";
+        inputEl.value = arr[i];
+        inputsWrapper.appendChild(inputEl);
+    }
+}
