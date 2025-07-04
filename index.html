@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Lekcija 1</a>
+                    <a class="nav-link active" aria-current="page" href="#">Frequency Distribution</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Lekcija 2</a>
@@ -31,8 +31,8 @@
                         Theme
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Light</a></li>
-                        <li><a class="dropdown-item" href="#">Dark</a></li>
+                        <li><a class="dropdown-item" href="#" id="light-link">Light</a></li>
+                        <li><a class="dropdown-item" href="#" id="dark-link">Dark</a></li>
                     </ul>
                     </li>
                 </ul>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="table-wrapper">
-                <table class="table table-striped">
+                <table class="table table-striped border border-1 rounded">
                     <thead>
                         <tr>
                             <th>Items</th>
@@ -78,7 +78,7 @@
                             <th>Cumulative Frequency (%)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-group-divider">
 
                     </tbody>
                 </table>
@@ -90,5 +90,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script type="module" src="./main.js"></script>
-</body>
+    <script src="./js/theme-select.js"></script>
+</body> 
 </html>
