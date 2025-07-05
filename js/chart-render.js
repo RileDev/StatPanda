@@ -1,9 +1,9 @@
-const graphWrapper = document.querySelector(".graph-wrapper");
-const ctx = document.getElementById("graph");
+const chartWrapper = document.querySelector(".chart-wrapper");
+const ctx = document.getElementById("chart");
 
 let chartInstance = null;
 
-export function displayGraph(dist) {
+export function displayChart(dist) {
   const hasIntervals = dist["dataset"].hasIntervals;
   const frequencies = dist["dataset"].frequencies;
 
@@ -14,7 +14,7 @@ export function displayGraph(dist) {
     ? frequencies.map((f) => f.frequency)
     : Object.values(frequencies);
 
-  showGraph();
+  showChart();
 
   if (chartInstance) {
     chartInstance.destroy();
@@ -57,4 +57,4 @@ export function displayGraph(dist) {
   });
 }
 
-const showGraph = () => graphWrapper.classList.add("display");
+const showChart = () => chartWrapper.classList.add("display");
