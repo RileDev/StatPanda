@@ -68,13 +68,26 @@
             <div class="input-group mb-3 input-samples">
             </div>
             
-            <div class="mb-3 button-controls">
-                <button type="button" id="generateBtn" class="btn btn-primary me-3">Generate</button>
-                <label for="fileInput" class="btn btn-primary">Upload File</label>
+            <div class="d-flex align-items-center gap-2 mb-3 button-controls">
+                <button type="button" id="generateBtn" class="btn btn-primary">Generate</button>
+                
+                <label for="fileInput" class="btn btn-primary mb-0">Upload File</label>
                 <input type="file" id="fileInput" class="d-none" accept=".txt">
-                <button type="button" id="clearBtn" class="btn btn-danger float-end">Clear</button>
-
+                
+                <select name="chartType" id="chartType" class="form-select w-auto" style="min-width:120px;">
+                    <option value="bar" selected>Bar</option>
+                    <option value="line">Line</option>
+                    <option value="pie">Pie</option>
+                    <option value="doughnut">Doughnut</option>
+                    <option value="polarArea">Polar Area</option>
+                    <option value="radar">Radar</option>
+                    <option value="horizontalBar">Horizontal Bar</option>
+                    <option value="stackedBar">Stacked Bar</option>
+                </select>
+                
+                <button type="button" id="clearBtn" class="btn btn-danger ms-auto">Clear</button>
             </div>
+
 
             <div class="text-wrapper">
                 <span class="mb-3" id="uploaded-message"></span>
