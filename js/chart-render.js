@@ -30,6 +30,7 @@ export function displayChart(data) {
     chartInstance.destroy();
   
   chartInstance = getChart(chartTypeSelect.value, "Frequency", labels, dataFreq);
+  return chartInstance;
 }
 
 const getChart = (type, label, labels, data, datasets = null) => {
