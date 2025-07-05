@@ -1,7 +1,7 @@
 import { FrequencyDistribution } from "./js/classes/frequency-distribution.js";
 import { generateSampleFields, fetchData, clearSampleFields } from "./js/samples.js"
 import { displayTable } from "./js/table-render.js";
-import { readFromFile } from "./js/file-stream.js";
+import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayChart } from "./js/chart-render.js";
 
 
@@ -39,4 +39,5 @@ clearBtn.addEventListener("click", () => {
     clearSampleFields();
     displayTable(null);
     displayChart(null);
+    clearUploadedMessage();
 })

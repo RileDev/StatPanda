@@ -39,3 +39,7 @@ export function readFromFile(event) {
 
     reader.readAsText(file);
 }
+
+export function clearUploadedMessage() {
+    uploadedMessage.innerText = "";
+}
