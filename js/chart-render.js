@@ -3,6 +3,10 @@ const ctx = document.getElementById("chart");
 const chartTypeSelect = document.getElementById("chartType");
 
 let chartInstance = null;
+const colorPalette = [
+  "#3366CC", "#DC3912", "#FF9900", "#109618", "#990099",
+  "#0099C6", "#DD4477", "#66AA00", "#B82E2E", "#316395"
+];
 
 export function displayChart(dist) {
   if(dist == null){
@@ -27,11 +31,6 @@ export function displayChart(dist) {
   
   chartInstance = getChart(chartTypeSelect.value, "Frequency", labels, data);
 }
-
-const colorPalette = [
-  "#3366CC", "#DC3912", "#FF9900", "#109618", "#990099",
-  "#0099C6", "#DD4477", "#66AA00", "#B82E2E", "#316395"
-];
 
 const getChart = (type, label, labels, data, datasets = null) => {
   let chartType = type;

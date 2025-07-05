@@ -21,7 +21,7 @@ let distribution = null;
 addBtn.addEventListener("click", () => generateSampleFields(parseInt(nSamples.value, 10)));
 
 fileInput.addEventListener("change", e => {
-    readFromFile(e, intervalCb.checked);
+    readFromFile(e);
     setTimeout(() => {fileInput.value = ""}, 500);
 });
 

@@ -2,7 +2,7 @@ import { displayUploadedSamples } from "./samples.js";
 
 const uploadedMessage = document.getElementById("uploaded-message");
 
-export function readFromFile(event, hasIntervals) {
+export function readFromFile(event) {
     const file = event.target.files[0];
     
     if (!file) {
