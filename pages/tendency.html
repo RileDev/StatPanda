@@ -74,16 +74,32 @@
                 <label for="fileInput" class="btn btn-primary mb-0">Upload File</label>
                 <input type="file" id="fileInput" class="d-none" accept=".txt">
                 
-                <select name="chartType" id="chartType" class="form-select w-auto" style="min-width:120px;">
-                    <option value="bar" selected>Bar</option>
-                    <option value="line">Line</option>
-                    <option value="pie">Pie</option>
-                    <option value="doughnut">Doughnut</option>
-                    <option value="polarArea">Polar Area</option>
-                    <option value="radar">Radar</option>
-                    <option value="horizontalBar">Horizontal Bar</option>
-                    <option value="stackedBar">Stacked Bar</option>
-                </select>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="showDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Show
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="showDropdown" style="min-width: 180px;">
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" value="table" checked>
+                            Table
+                        </label>
+                        </li>
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" value="boxplot" checked>
+                            Boxplot
+                        </label>
+                        </li>
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" value="histogram" checked>
+                            Histogram
+                        </label>
+                        </li>
+                    </ul>
+                    </div>
+
                 
                 <button type="button" id="exportPDFBtn" class="btn btn-success">Export PDF</button>
                 <button type="button" id="clearBtn" class="btn btn-danger ms-auto">Clear</button>
