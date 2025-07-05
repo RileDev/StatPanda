@@ -53,8 +53,8 @@ const getChart = (type, label, labels, data, datasets = null) => {
     chartType = "bar";
     options.indexAxis = "y";
     options.scales = {
-      x: { title: { display: true, text: "Intervals" } },
-      y: { beginAtZero: true, title: { display: true, text: "Frequency" }, ticks: { stepSize: 1 } }
+      x: { title: { display: true, text: "Frequency" } },
+      y: { beginAtZero: true, title: { display: true, text: "Intervals" }, ticks: { stepSize: 1 } }
     };
     chartDatasets = datasets || [
       {
