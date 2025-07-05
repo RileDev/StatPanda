@@ -60,8 +60,9 @@ export function saveToPDF(data, chart){
     const chartWidth = 180;
     const chartHeight = 120;
 
-    const finalY = doc.lastAutoTable.finalY + 10;
-    doc.addImage(chartImage, "PNG", 15, finalY, chartWidth, chartHeight);
+    // const finalY = doc.lastAutoTable.finalY + 10;
+    doc.addPage();
+    doc.addImage(chartImage, "PNG", 15, 10, chartWidth, chartHeight);
 
     doc.save("frequency-distribution-report.pdf");
 
