@@ -1,5 +1,5 @@
 import { FrequencyDistribution } from "./js/classes/frequency-distribution.js";
-import { generateSampleFields, fetchData } from "./js/samples.js"
+import { generateSampleFields, fetchData, clearSampleFields } from "./js/samples.js"
 import { displayTable } from "./js/table-render.js";
 import { readFromFile } from "./js/file-stream.js";
 import { displayChart } from "./js/chart-render.js";
@@ -8,6 +8,7 @@ import { displayChart } from "./js/chart-render.js";
 const addBtn = document.getElementById("addBtn");
 const generateBtn = document.getElementById("generateBtn");
 const fileInput = document.getElementById("fileInput");
+const clearBtn = document.getElementById("clearBtn");
 
 const nSamples = document.getElementById("nSamples");
 const intervalCb = document.getElementById("intervalCb");
@@ -31,4 +32,11 @@ generateBtn.addEventListener("click", () => {
     distribution = new FrequencyDistribution(data, intervalCb.checked);    
     displayTable(distribution.json);
     displayChart(distribution.json);
+})
+
+clearBtn.addEventListener("click", () => {
+    distribution = null;
+    clearSampleFields();
+    displayTable(null);
+    displayChart(null);
 })

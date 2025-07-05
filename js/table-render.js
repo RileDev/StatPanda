@@ -2,6 +2,10 @@ const tableWrapper = document.querySelector(".table-wrapper");
 const tableBody = document.querySelector(".table-wrapper tbody");
 
 export function displayTable(data){
+    if(data == null) {
+        hideTable()
+        return;
+    }
     showTable();
     tableBody.innerHTML = "";
     
@@ -31,3 +35,9 @@ export function displayTable(data){
 }
 
 const showTable = () => tableWrapper.classList.add("display");
+
+const hideTable = () => {
+    tableBody.innerHTML = "";
+    if(tableWrapper.classList.contains("display"))
+        tableWrapper.classList.remove("display");
+}

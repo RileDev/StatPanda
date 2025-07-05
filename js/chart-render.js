@@ -4,6 +4,11 @@ const ctx = document.getElementById("chart");
 let chartInstance = null;
 
 export function displayChart(dist) {
+  if(dist == null){
+    hideChart();
+    return;
+  }
+
   const hasIntervals = dist["dataset"].hasIntervals;
   const frequencies = dist["dataset"].frequencies;
 
@@ -16,9 +21,8 @@ export function displayChart(dist) {
 
   showChart();
 
-  if (chartInstance) {
+  if (chartInstance) 
     chartInstance.destroy();
-  }
 
   chartInstance = new Chart(ctx, {
     type: "line",
@@ -58,3 +62,10 @@ export function displayChart(dist) {
 }
 
 const showChart = () => chartWrapper.classList.add("display");
+
+const hideChart = () => {
+  if(chartInstance)
+      chartInstance.destroy();
+  if(chartWrapper.classList.contains("display"))
+    chartWrapper.classList.remove("display");
+}
