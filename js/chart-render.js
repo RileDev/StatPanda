@@ -8,19 +8,19 @@ const colorPalette = [
   "#0099C6", "#DD4477", "#66AA00", "#B82E2E", "#316395"
 ];
 
-export function displayChart(dist) {
-  if(dist == null){
+export function displayChart(data) {
+  if(data === null){
     hideChart();
     return;
   }
 
-  const hasIntervals = dist["dataset"].hasIntervals;
-  const frequencies = dist["dataset"].frequencies;
+  const hasIntervals = data["dataset"].hasIntervals;
+  const frequencies = data["dataset"].frequencies;
 
   const labels = hasIntervals
     ? frequencies.map((f) => `${f.min}-${f.max}`)
     : Object.keys(frequencies);
-  const data = hasIntervals
+  const dataFreq = hasIntervals
     ? frequencies.map((f) => f.frequency)
     : Object.values(frequencies);
 
@@ -29,7 +29,7 @@ export function displayChart(dist) {
   if (chartInstance) 
     chartInstance.destroy();
   
-  chartInstance = getChart(chartTypeSelect.value, "Frequency", labels, data);
+  chartInstance = getChart(chartTypeSelect.value, "Frequency", labels, dataFreq);
 }
 
 const getChart = (type, label, labels, data, datasets = null) => {

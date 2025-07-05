@@ -3,6 +3,7 @@ import { generateSampleFields, fetchData, clearSampleFields } from "./js/samples
 import { displayTable } from "./js/table-render.js";
 import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayChart } from "./js/chart-render.js";
+import { displayInfo } from "./js/info-render.js";
 
 
 const addBtn = document.getElementById("addBtn");
@@ -30,6 +31,7 @@ generateBtn.addEventListener("click", () => {
     uploadedMessage.textContent = "";
     
     distribution = new FrequencyDistribution(data, intervalCb.checked);    
+    displayInfo(distribution.json);
     displayTable(distribution.json);
     displayChart(distribution.json);
 })
@@ -37,6 +39,7 @@ generateBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => {
     distribution = null;
     clearSampleFields();
+    displayInfo(null);
     displayTable(null);
     displayChart(null);
     clearUploadedMessage();
