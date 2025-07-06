@@ -5,7 +5,7 @@ import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayChart } from "./js/chart-render.js";
 import { displayInfo } from "./js/info-render.js";
 import { saveToPDF } from "./js/pdf-export.js";
-
+import { Tendency } from "./js/classes/tendency.js";
 
 const addBtn = document.getElementById("addBtn");
 const generateBtn = document.getElementById("generateBtn");
@@ -18,7 +18,7 @@ const intervalCb = document.getElementById("intervalCb");
 
 const uploadedMessage = document.getElementById("uploaded-message");
 
-let distribution = null;
+let statistics = null;
 let chart = null;
 
 
@@ -32,15 +32,29 @@ fileInput.addEventListener("change", e => {
 generateBtn.addEventListener("click", () => {
     const data = fetchData();
     uploadedMessage.textContent = "";
+
+    switch(generateBtn.dataset.type){
+        case "freq-dist":
+            statistics = new FrequencyDistribution(data, intervalCb.checked); 
+            displayInfo(statistics.json);
+            displayTable(statistics.json);
+            chart = displayChart(statistics.json); 
+            break;
+        case "tendency":
+            statistics = new Tendency(data, intervalCb.checked);
+            displayInfo(statistics.json)
+            break;
+            
+
+
+    }
     
-    distribution = new FrequencyDistribution(data, intervalCb.checked);    
-    displayInfo(distribution.json);
-    displayTable(distribution.json);
-    chart = displayChart(distribution.json);
+    
+    
 })
 
 clearBtn.addEventListener("click", () => {
-    distribution = null;
+    statistics = null;
     clearSampleFields();
     displayInfo(null);
     displayTable(null);
@@ -49,5 +63,5 @@ clearBtn.addEventListener("click", () => {
 })
 
 exportPDFBtn.addEventListener("click", () => {
-    saveToPDF(distribution, chart);
+    saveToPDF(statistics, chart);
 });

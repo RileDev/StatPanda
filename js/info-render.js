@@ -10,12 +10,14 @@ export function displayInfo(data){
     const n = data["dataset"].n;
     const k = data["dataset"].k;
     const i = data["dataset"].i;
+    const arithmeticMean = data["dataset"].arithmeticMean || null;
 
     infoWrapper.innerHTML = 
     `
         <p>N: ${n}</p>
         <p>k: ${k}</p>
         <p>i: ${i}<p>
+        ${arithmeticMean ? `<p>Arithmetic Mean: ${arithmeticMean}<p>` : ""}
     <hr>
     `;
 }
