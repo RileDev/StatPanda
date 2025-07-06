@@ -14,6 +14,7 @@ export function displayInfo(data){
     const geometricMean = data["dataset"].geometricMean || null;
     const harmonicMean = data["dataset"].harmonicMean || null;
     const median = data["dataset"].median || null;
+    const mode = data["dataset"].mode || null;
 
     infoWrapper.innerHTML = 
     `
@@ -22,7 +23,9 @@ export function displayInfo(data){
         <p>i: ${i}<p>
         ${arithmeticMean ? `<p>Arithmetic Mean: ${arithmeticMean.toFixed(2)}<p>` : ""}
         ${geometricMean ? `<p>Geometric Mean: ${geometricMean.toFixed(2)}<p>` : ""}
+        ${harmonicMean ? `<p>Harmonic Mean: ${harmonicMean.toFixed(2)}<p>` : ""}
         ${median ? `<p>Median: ${median.toFixed(2)}<p>` : ""}
+        ${mode ? `<p>Mode: ${mode.toFixed(2)}<p>` : ""}
     <hr>
     `;
 }

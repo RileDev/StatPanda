@@ -135,7 +135,35 @@ export class Tendency extends FrequencyDistribution{
         }
     }
 
-    getMode() {}
+    getMode() {
+        let mode = 0;
+        const frequencies = this.getFrequencies();
+        if(this.hasIntervals){
+            let maxIndex = 0;
+            for (let i = 1; i < frequencies.length; i++) {
+                if (frequencies[i].frequency > frequencies[maxIndex].frequency) {
+                    maxIndex = i;
+                }
+            }
+
+            const freqObj = frequencies[maxIndex];
+            const L = freqObj.min;
+            const f1 = freqObj.frequency;
+            const f0 = maxIndex > 0 ? frequencies[maxIndex - 1].frequency : 0;
+            const f2 = maxIndex < frequencies.length - 1 ? frequencies[maxIndex + 1].frequency : 0;
+            const w = freqObj.max - freqObj.min;
+            
+            const denominator = 2 * f1 - f0 - f2;
+            if(denominator === 0) return NaN;
+            mode = L + ((f1 - f0) / denominator) * w;
+        }else{
+            const maxFreq = Math.max(...Object.values(frequencies));
+            const modes = Object.keys(frequencies).filter(k => frequencies[k] == maxFreq);
+            mode = Number(modes[0]);
+        }
+
+        return mode;
+    }
 
     getQuartiles() {}
 
@@ -152,7 +180,8 @@ export class Tendency extends FrequencyDistribution{
             arithmeticMean: this.getArithmeticMean(),
             geometricMean: this.getGeometricMean(),
             harmonicMean: this.getHarmonicMean(),
-            median: this.getMedian()
+            median: this.getMedian(),
+            mode: this.getMode()
         },
     };
     }
