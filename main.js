@@ -41,7 +41,7 @@ generateBtn.addEventListener("click", () => {
             chart = displayChart(statistics.json); 
             break;
         case "tendency":
-            statistics = new Tendency(data, intervalCb.checked);
+            statistics = new Tendency(data, intervalCb.checked);            
             displayInfo(statistics.json)
             break;
             
