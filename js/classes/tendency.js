@@ -20,8 +20,10 @@ export class Tendency extends FrequencyDistribution{
 
     getArithmeticMean() {
         let count = 0;
-        let frequencies = this.getFrequencies();
-        let n = this.count;
+        const frequencies = this.getFrequencies();
+        const n = this.count;
+
+        if (n === 0) return NaN;
         
         if(this.hasIntervals){
             const xs = this.#getMidpointsOfIthClass(frequencies);
@@ -42,11 +44,36 @@ export class Tendency extends FrequencyDistribution{
         return count / n;
     }
 
+    getGeometricMean() {
+        let g = 0;
+        let logSum = 0;
+        const frequencies = this.getFrequencies();
+        const n = this.count;
+
+        if (n === 0) return NaN;
+
+        if(this.hasIntervals){
+            const xs = this.#getMidpointsOfIthClass(frequencies);
+
+            for(let i = 0; i < frequencies.length; i++){
+                const freq = frequencies[i].frequency;                
+                logSum += freq * Math.log(xs[i]);
+            }
+        }else{
+            let intrevals = Object.keys(frequencies);
+            let freq = Object.values(frequencies);
+            
+            for (let i = 0; i < intrevals.length; i++) {
+                logSum += freq[i] * Math.log(Number(intrevals[i]));
+            }
+        }
+        g = Math.exp(logSum / n);
+        return g;
+    }
+
     getMedian(){}
 
     getMode() {}
-
-    getGeometricMean() {}
 
     getHarmonicMean() {}
 
@@ -62,7 +89,8 @@ export class Tendency extends FrequencyDistribution{
             hasIntervals: this.hasIntervals,
             items: this.getItems(),
             frequencies: this.getFrequencies(),
-            arithmeticMean: this.getArithmeticMean()
+            arithmeticMean: this.getArithmeticMean(),
+            geometricMean: this.getGeometricMean()
         },
     };
     }

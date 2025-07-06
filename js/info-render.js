@@ -11,13 +11,15 @@ export function displayInfo(data){
     const k = data["dataset"].k;
     const i = data["dataset"].i;
     const arithmeticMean = data["dataset"].arithmeticMean || null;
+    const geometricMean = data["dataset"].geometricMean || null;
 
     infoWrapper.innerHTML = 
     `
         <p>N: ${n}</p>
         <p>k: ${k}</p>
         <p>i: ${i}<p>
-        ${arithmeticMean ? `<p>Arithmetic Mean: ${arithmeticMean}<p>` : ""}
+        ${arithmeticMean ? `<p>Arithmetic Mean: ${arithmeticMean.toFixed(2)}<p>` : ""}
+        ${geometricMean ? `<p>Geometric Mean: ${geometricMean.toFixed(2)}<p>` : ""}
     <hr>
     `;
 }

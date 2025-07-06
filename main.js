@@ -45,11 +45,7 @@ generateBtn.addEventListener("click", () => {
             displayInfo(statistics.json)
             break;
             
-
-
     }
-    
-    
     
 })
 
