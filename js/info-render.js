@@ -15,6 +15,7 @@ export function displayInfo(data){
     const harmonicMean = data["dataset"].harmonicMean || null;
     const median = data["dataset"].median || null;
     const mode = data["dataset"].mode || null;
+    const quartiles = data["dataset"].quartiles || null;
 
     infoWrapper.innerHTML = 
     `
@@ -26,6 +27,10 @@ export function displayInfo(data){
         ${harmonicMean ? `<p>Harmonic Mean: ${harmonicMean.toFixed(2)}<p>` : ""}
         ${median ? `<p>Median: ${median.toFixed(2)}<p>` : ""}
         ${mode ? `<p>Mode: ${mode.toFixed(2)}<p>` : ""}
+        ${quartiles ? `<p>Quartiles: <p>` : ""}
+        ${quartiles.Q1 ? `<p>Q1: ${quartiles.Q1.toFixed(2)}<p>` : ""}
+        ${quartiles.Q2 ? `<p>Q2: ${quartiles.Q2.toFixed(2)}<p>` : ""}
+        ${quartiles.Q3 ? `<p>Q3: ${quartiles.Q3.toFixed(2)}<p>` : ""}
     <hr>
     `;
 }

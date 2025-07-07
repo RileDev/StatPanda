@@ -54,7 +54,7 @@
                 <hr>
             </div>
             <div class="input-group mb-3 interval-option">
-                <span class="input-group-text" id="nSamplesSpan">Intervals </span>
+                <span class="input-group-text" id="nSamplesSpan">Grouped Data</span>
                 <div class="input-group-text">
                     <input class="form-check-input mt-0" type="checkbox" value="" id="intervalCb" aria-label="Checkbox if we should represent data with intervals">
                 </div>
@@ -81,19 +81,19 @@
                     <ul class="dropdown-menu" aria-labelledby="showDropdown" style="min-width: 180px;">
                         <li>
                         <label class="dropdown-item">
-                            <input type="checkbox" value="table" checked>
+                            <input type="checkbox" class="show-option show-table" value="table" checked>
                             Table
                         </label>
                         </li>
                         <li>
                         <label class="dropdown-item">
-                            <input type="checkbox" value="boxplot" checked>
+                            <input type="checkbox" class="show-option show-boxplot" value="boxplot" checked>
                             Boxplot
                         </label>
                         </li>
                         <li>
                         <label class="dropdown-item">
-                            <input type="checkbox" value="histogram" checked>
+                            <input type="checkbox" class="show-option show-histogram" value="histogram" checked>
                             Histogram
                         </label>
                         </li>
@@ -125,6 +125,10 @@
 
                     </tbody>
                 </table>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="chart"></canvas>
             </div>
         </div>
     </main>

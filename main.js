@@ -12,6 +12,7 @@ const generateBtn = document.getElementById("generateBtn");
 const fileInput = document.getElementById("fileInput");
 const clearBtn = document.getElementById("clearBtn");
 const exportPDFBtn = document.getElementById("exportPDFBtn");
+const showOptions = document.querySelectorAll(".show-option");
 
 const nSamples = document.getElementById("nSamples");
 const intervalCb = document.getElementById("intervalCb");
@@ -31,7 +32,6 @@ fileInput.addEventListener("change", e => {
 
 generateBtn.addEventListener("click", () => {
     const data = fetchData();
-    uploadedMessage.textContent = "";
 
     switch(generateBtn.dataset.type){
         case "freq-dist":
@@ -42,25 +42,32 @@ generateBtn.addEventListener("click", () => {
             break;
         case "tendency":
             statistics = new Tendency(data, intervalCb.checked);
-            displayInfo(statistics.json)
-            console.log(statistics.getQuartiles());
+            displayInfo(statistics.json);
+            if(showOptions[0].checked)
+                displayTable(statistics.json, true);
+            else
+                displayTable(null);
+
             
-            displayTable(statistics.json, true);
+            
+            
             break;
             
     }
     
 })
 
-clearBtn.addEventListener("click", () => {
-    statistics = null;
-    clearSampleFields();
-    displayInfo(null);
-    displayTable(null);
-    displayChart(null);
-    clearUploadedMessage();
-})
+clearBtn.addEventListener("click", () => clearContents())
 
 exportPDFBtn.addEventListener("click", () => {
     saveToPDF(statistics, chart);
 });
+
+const clearContents = () => {
+    statistics = null;
+    clearUploadedMessage();
+    clearSampleFields();
+    displayInfo(null);
+    displayTable(null);
+    displayChart(null);
+}
