@@ -165,7 +165,36 @@ export class Tendency extends FrequencyDistribution{
         return mode;
     }
 
-    getQuartiles() {}
+    getQuartiles() {
+        const n = this.count;
+        const cumulatives = this.getCumulativeBelow();
+        const frequencies = this.getFrequencies();
+
+        if(this.hasIntervals){
+            
+        }else{
+            let cumulativeIndexQ1 = 0;
+            let cumulativeIndexQ3 = 0;
+
+            const q1Pos = n / 4;
+            const q3Pos = 3 * n / 4;
+
+            for(let i = 0; i < cumulatives.length; i++){
+                if(q1Pos >= cumulatives[cumulativeIndexQ1])
+                    cumulativeIndexQ1 = i;
+                if(q3Pos >= cumulatives[cumulativeIndexQ3])
+                    cumulativeIndexQ3 = i;
+            }
+            
+            const items = Object.keys(frequencies).map(Number).sort((a, b) => a - b);
+
+            return {
+                Q1: items[cumulativeIndexQ1],
+                Q2: this.getMedian(),
+                Q3: items[cumulativeIndexQ3]
+            }
+        }
+    }
 
     get json(){
         return {
@@ -182,7 +211,8 @@ export class Tendency extends FrequencyDistribution{
             geometricMean: this.getGeometricMean(),
             harmonicMean: this.getHarmonicMean(),
             median: this.getMedian(),
-            mode: this.getMode()
+            mode: this.getMode(),
+            quartiles: this.getQuartiles()
         },
     };
     }

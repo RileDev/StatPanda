@@ -43,6 +43,8 @@ generateBtn.addEventListener("click", () => {
         case "tendency":
             statistics = new Tendency(data, intervalCb.checked);
             displayInfo(statistics.json)
+            console.log(statistics.getQuartiles());
+            
             displayTable(statistics.json, true);
             break;
             
