@@ -43,6 +43,7 @@ generateBtn.addEventListener("click", () => {
         case "tendency":
             statistics = new Tendency(data, intervalCb.checked);
             displayInfo(statistics.json)
+            displayTable(statistics.json, true);
             break;
             
     }

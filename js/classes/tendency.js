@@ -177,6 +177,7 @@ export class Tendency extends FrequencyDistribution{
             hasIntervals: this.hasIntervals,
             items: this.getItems(),
             frequencies: this.getFrequencies(),
+            cumulativeBelow: this.getCumulativeBelow(),
             arithmeticMean: this.getArithmeticMean(),
             geometricMean: this.getGeometricMean(),
             harmonicMean: this.getHarmonicMean(),
