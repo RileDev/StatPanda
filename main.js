@@ -2,9 +2,9 @@ import { FrequencyDistribution } from "./js/classes/frequency-distribution.js";
 import { generateSampleFields, fetchData, clearSampleFields } from "./js/samples.js"
 import { displayTable } from "./js/table-render.js";
 import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
-import { displayChart } from "./js/chart-render.js";
+import { displayBoxplot, displayChart, displayHistogram } from "./js/chart-render.js";
 import { displayInfo } from "./js/info-render.js";
-import { saveToPDF } from "./js/pdf-export.js";
+import { saveFreqDistToPDF } from "./js/pdf-export.js";
 import { Tendency } from "./js/classes/tendency.js";
 
 const addBtn = document.getElementById("addBtn");
@@ -47,10 +47,16 @@ generateBtn.addEventListener("click", () => {
                 displayTable(statistics.json, true);
             else
                 displayTable(null);
-
-            
-            
-            
+            if(showOptions[1].checked)
+                chart = displayBoxplot(statistics.json); 
+            else{
+                chart = null;
+                displayBoxplot(null);
+            }
+            if(showOptions[2].checked)
+                displayHistogram(statistics.json)
+            else
+                displayHistogram(null)  
             break;
             
     }
@@ -60,14 +66,18 @@ generateBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => clearContents())
 
 exportPDFBtn.addEventListener("click", () => {
-    saveToPDF(statistics, chart);
+    saveFreqDistToPDF(statistics, chart);
 });
 
 const clearContents = () => {
     statistics = null;
-    clearUploadedMessage();
-    clearSampleFields();
-    displayInfo(null);
-    displayTable(null);
-    displayChart(null);
+    try{
+        clearUploadedMessage();
+        clearSampleFields();
+        displayInfo(null);
+        displayTable(null);
+        displayChart(null);
+        displayHistogram(null);
+    }catch(e) {}
+    
 }

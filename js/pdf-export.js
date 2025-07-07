@@ -1,4 +1,4 @@
-export function saveToPDF(data, chart){
+export function saveFreqDistToPDF(data, chart){
     if(data === null || chart === null){
         alert("There's nothing generated to save as a PDF file :(");
         return;
