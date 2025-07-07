@@ -9,7 +9,7 @@
     width: 15%;
 }
 
-.table-wrapper, .chart-wrapper, .info-wrapper{
+.table-wrapper, .chart-wrapper, .info-wrapper, .histogram-wrapper{
     display: none;
 }
 

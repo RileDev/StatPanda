@@ -6,7 +6,7 @@
     <title>StatPanda - Statistics Calculator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body class="bg-body-tertiary">
 
@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Frequency Distribution</a>
+                    <a class="nav-link" href="../index.html">Frequency Distribution</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="./pages/tendency.html">Measures of central tendency</a>
+                    <a class="nav-link active" aria-current="page" href="#">Measures of central tendency</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Measures of variation</a>
@@ -47,10 +47,10 @@
             <p>This app helps you calculate and visualize relative frequencies and other basic statistical measures from your data.</p>
         </div>
 
-        <div class="border border-1 rounded p-3" id="frequencyDistribution">
+        <div class="border border-1 rounded p-3" id="tendency">
             <div class="text-wrapper">
-                <h3>Frequency Distribution</h3>
-                <p>Frequency distribution helps us organize raw data into groups or intervals, showing how often each value or range appears. For each group, the frequency tells us the count of data points, cumulative frequency shows the running total up to (or above) that group, and relative frequency (percentage) expresses the frequency as a proportion of the total number of data points. These parameters make it easy to analyze patterns and trends within a dataset.</p>
+                <h3>Measures of central tendency</h3>
+                <p><strong>Measures of central tendency</strong> are statistics that describe the “center” or typical value in a dataset. The most common are the <strong>mean</strong> (average), <strong>median</strong> (middle value), and <strong>mode</strong> (most frequent value). These measures help us summarize a set of numbers with a single value that best represents the entire dataset. Additionally, quartiles divide the data into four parts, helping us understand its spread and identify outliers. By calculating these values, we gain insight into where most data points are concentrated and how the data is distributed around the center.</p>
                 <hr>
             </div>
             <div class="input-group mb-3 interval-option">
@@ -69,23 +69,39 @@
             </div>
             
             <div class="d-flex align-items-center gap-2 mb-3 button-controls">
-                <button type="button" id="generateBtn" class="btn btn-primary" data-type="freq-dist">Generate</button>
+                <button type="button" id="generateBtn" class="btn btn-primary" data-type="tendency">Generate</button>
                 
                 <label for="fileInput" class="btn btn-primary mb-0">Upload File</label>
                 <input type="file" id="fileInput" class="d-none" accept=".txt">
                 
-                <select name="chartType" id="chartType" class="form-select w-auto" style="min-width:120px;">
-                    <option value="bar" selected>Bar</option>
-                    <option value="line">Line</option>
-                    <option value="pie">Pie</option>
-                    <option value="doughnut">Doughnut</option>
-                    <option value="polarArea">Polar Area</option>
-                    <option value="radar">Radar</option>
-                    <option value="horizontalBar">Horizontal Bar</option>
-                    <option value="stackedBar">Stacked Bar</option>
-                </select>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="showDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Show
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="showDropdown" style="min-width: 180px;">
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" class="show-option show-table" value="table" checked>
+                            Table
+                        </label>
+                        </li>
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" class="show-option show-boxplot" value="boxplot" checked>
+                            Boxplot
+                        </label>
+                        </li>
+                        <li>
+                        <label class="dropdown-item">
+                            <input type="checkbox" class="show-option show-histogram" value="histogram" checked>
+                            Histogram
+                        </label>
+                        </li>
+                    </ul>
+                    </div>
+
                 
-                <button type="button" id="exportPDFBtn" class="btn btn-success">Export PDF</button>
+                <button type="button" id="exportPDFBtn" class="btn btn-success" title="Work in progress..." disabled>Export PDF</button>
                 <button type="button" id="clearBtn" class="btn btn-danger ms-auto">Clear</button>
             </div>
 
@@ -100,8 +116,8 @@
                 
             </div>
 
-
             <div class="table-wrapper">
+                <h4 class="text-center">Table</h4>
                 <table class="table table-striped border border-1 rounded">
                     <thead>
                         
@@ -111,9 +127,15 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="chart-wrapper">
+                <h4 class="text-center">Boxplot</h4>
                 <canvas id="chart"></canvas>
+            </div>
+
+            <div class="histogram-wrapper">
+                <h4 class="text-center">Histogram</h4>
+                <p class="text-center">This feature will be implemented very soon :D</p>
             </div>
         </div>
     </main>
@@ -132,9 +154,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js" integrity="sha512-ad3j5/L4h648YM/KObaUfjCsZRBP9sAOmpjaT2BDx6u9aBrKFp7SbeHykruy83rxfmG42+5QqeL/ngcojglbJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/@sgratzl/chartjs-chart-boxplot@3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js" integrity="sha512-JizZOUNesiGhMcp9fsA/9W31FOat6QysBM8hSj6ir8iIANIUJ2mhko7Lo1+j0ErftmJ8SebMZLm9iielKjeIEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="./main.js"></script>
-    <script src="./js/theme-select.js"></script>
+    <script type="module" src="../main.js"></script>
+    <script src="../js/theme-select.js"></script>
 </body> 
 </html>

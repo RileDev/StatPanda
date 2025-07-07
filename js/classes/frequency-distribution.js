@@ -39,6 +39,14 @@ export class FrequencyDistribution {
     return freq;
   }
 
+  get rawData(){
+    return this.#rawData;
+  }
+
+  get hasIntervals(){
+    return this.#hasIntervals;
+  }
+
   get count() {
     return this.#rawData.length;
   }
