@@ -241,24 +241,24 @@ export const displayHistogram = data => {
 
     meanAnnotation = {
       type: 'line',
-      xMin: meanBinIndex + 0.5,
-      xMax: meanBinIndex + 0.5,
+      xMin: meanBinIndex,
+      xMax: meanBinIndex,
       borderColor: '#43a047',
       borderWidth: 2,
       label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
     };
     medianAnnotation = {
       type: 'line',
-      xMin: medianBinIndex + 0.5,
-      xMax: medianBinIndex + 0.5,
+      xMin: medianBinIndex,
+      xMax: medianBinIndex,
       borderColor: '#ff9800',
       borderWidth: 2,
       label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
     };
     modeAnnotation = {
       type: 'line',
-      xMin: modeBinIndex + 0.5,
-      xMax: modeBinIndex + 0.5,
+      xMin: modeBinIndex,
+      xMax: modeBinIndex,
       borderColor: '#e53935',
       borderWidth: 2,
       label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
