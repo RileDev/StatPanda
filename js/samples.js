@@ -17,8 +17,10 @@ export function generateSampleFields(n) {
         inputEl.className = `form-control sample sample-${i}`;
         inputEl.style.width = "100px";
         inputEl.style.maxWidth = "100px";
+        inputEl.setAttribute('aria-label', `Sample ${i + 1}`);
         inputsWrapper.appendChild(inputEl);
     }
+    if (inputsWrapper.firstChild) inputsWrapper.firstChild.focus();
 }
 
 export function fetchData() {
@@ -35,13 +37,14 @@ export function fetchData() {
 export function clearSampleFields() {
     inputsWrapper.innerHTML = "";
     canInputFieldsBeRendered = true;
+    uploadedData = [];
 }
 
 export function displayUploadedSamples(arr) {
     uploadedData = [];
     if (arr.length > LIMIT) {
         canInputFieldsBeRendered = false;
-        uploadedData = arr;
+        uploadedData = arr.map(x => Number(x)).filter(x => !isNaN(x));
         inputsWrapper.innerHTML = `
             <p>
                 <strong>Your data file was successfully uploaded!</strong><br>
@@ -60,6 +63,8 @@ export function displayUploadedSamples(arr) {
         inputEl.style.width = "100px";
         inputEl.style.maxWidth = "100px";
         inputEl.value = arr[i];
+        inputEl.setAttribute('aria-label', `Sample ${i + 1}`);
         inputsWrapper.appendChild(inputEl);
     }
+    if (inputsWrapper.firstChild) inputsWrapper.firstChild.focus();
 }
