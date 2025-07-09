@@ -5,7 +5,7 @@ export class Tendency extends FrequencyDistribution {
         super(rawData, hasInterval);
     }
 
-    #getMidpointsOfIthClass(frequencies) {
+    getMidpointsOfIthClass(frequencies) {
         let result = [];
 
         for (let i = 0; i < frequencies.length; i++) {
@@ -26,7 +26,7 @@ export class Tendency extends FrequencyDistribution {
         if (n === 0) return NaN;
 
         if (this.hasIntervals) {
-            const xs = this.#getMidpointsOfIthClass(frequencies);
+            const xs = this.getMidpointsOfIthClass(frequencies);
 
             for (let i = 0; i < frequencies.length; i++) {
                 const freq = frequencies[i].frequency;
@@ -53,7 +53,7 @@ export class Tendency extends FrequencyDistribution {
         if (n === 0) return NaN;
 
         if (this.hasIntervals) {
-            const xs = this.#getMidpointsOfIthClass(frequencies);
+            const xs = this.getMidpointsOfIthClass(frequencies);
 
             for (let i = 0; i < frequencies.length; i++) {
                 const freq = frequencies[i].frequency;
@@ -79,7 +79,7 @@ export class Tendency extends FrequencyDistribution {
         if (n === 0) return NaN;
 
         if (this.hasIntervals) {
-            const xs = this.#getMidpointsOfIthClass(frequencies);
+            const xs = this.getMidpointsOfIthClass(frequencies);
 
             for (let i = 0; i < frequencies.length; i++) {
                 const freq = frequencies[i].frequency;

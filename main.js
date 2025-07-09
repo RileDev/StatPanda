@@ -6,6 +6,7 @@ import { displayBoxplot, displayChart, displayHistogram } from "./js/chart-rende
 import { displayInfo } from "./js/info-render.js";
 import { saveFreqDistToPDF } from "./js/pdf-export.js";
 import { Tendency } from "./js/classes/tendency.js";
+import { Variation } from "./js/classes/variation.js";
 
 const addBtn = document.getElementById("addBtn");
 const generateBtn = document.getElementById("generateBtn");
@@ -58,7 +59,11 @@ generateBtn.addEventListener("click", () => {
             else
                 displayHistogram(null)  
             break;
-            
+
+        case "variation":
+            statistics = new Variation(data, intervalCb.checked);
+            displayInfo(statistics.json);
+            break;  
     }
     
 })

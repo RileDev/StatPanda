@@ -16,7 +16,8 @@ export function displayInfo(data){
     const median = data["dataset"].median || null;
     const mode = data["dataset"].mode || null;
     const quartiles = data["dataset"].quartiles || null;
-
+    const range = data["dataset"].range || null;
+    const meanAbsoluteDeviation = data["dataset"].meanAbsoluteDeviation || null;
 
     try{
         infoWrapper.innerHTML = 
@@ -24,15 +25,17 @@ export function displayInfo(data){
                 <p>N: ${n}</p>
                 <p>k: ${k}</p>
                 <p>i: ${i}<p>
-                ${arithmeticMean ? `<p><strong>Arithmetic Mean: ${arithmeticMean.toFixed(2)}</strong></p>` : ""}
+                ${arithmeticMean ? `<p>Arithmetic Mean: ${arithmeticMean.toFixed(2)}</p>` : ""}
                 ${geometricMean ? `<p>Geometric Mean: ${geometricMean.toFixed(2)}</p>` : ""}
                 ${harmonicMean ? `<p>Harmonic Mean: ${harmonicMean.toFixed(2)}</p>` : ""}
-                ${median ? `<p><strong>Median: ${median.toFixed(2)}</strong></p>` : ""}
+                ${median ? `<p>Median: ${median.toFixed(2)}</p>` : ""}
                 ${mode ? `<p>Mode: ${mode.toFixed(2)}</p>` : ""}
                 ${quartiles ? `<p><strong>Quartiles: </strong></p>` : ""}
                 ${quartiles ? `<p>Q1: ${quartiles.Q1.toFixed(2)}</p>` : ""}
                 ${quartiles ? `<p>Q2: ${quartiles.Q2.toFixed(2)}</p>` : ""}
                 ${quartiles ? `<p>Q3: ${quartiles.Q3.toFixed(2)}</p>` : ""}
+                ${range ? `<p>Range: ${range}</p>` : ""}
+                ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(4)}</p>` : ""}
             <hr>
             `;
     }catch(e){}
