@@ -3,9 +3,11 @@ const ctx = document.getElementById("chart");
 const chartTypeSelect = document.getElementById("chartType");
 
 const histogramWrapper = document.querySelector(".histogram-wrapper");
-
+const histogramCtx = document.getElementById("histogram");
 
 let chartInstance = null;
+let histogramInstance = null;
+
 const colorPalette = [
   "#3366CC", "#DC3912", "#FF9900", "#109618", "#990099",
   "#0099C6", "#DD4477", "#66AA00", "#B82E2E", "#316395"
@@ -218,8 +220,142 @@ export const displayHistogram = data => {
     return;
   }
 
+  const dataset = data["dataset"];
+  let histogramData, xScaleType, xLabels, meanValue, medianValue, modeValue, meanAnnotation, medianAnnotation, modeAnnotation;
+
+  if (dataset.hasIntervals) {
+    xScaleType = 'category';
+    xLabels = dataset.items.map(item => `${item.min}-${item.max}`);
+    histogramData = dataset.frequencies.map(f => f.frequency);
+
+    function getBinIndex(value, items) {
+      for (let i = 0; i < items.length; i++) {
+        if (value >= items[i].min && value <= items[i].max) return i;
+      }
+      return 0;
+    }
+
+    const meanBinIndex = getBinIndex(dataset.arithmeticMean, dataset.items);
+    const medianBinIndex = getBinIndex(dataset.quartiles.Q2, dataset.items);
+    const modeBinIndex = getBinIndex(dataset.mode, dataset.items);
+
+    meanAnnotation = {
+      type: 'line',
+      xMin: meanBinIndex,
+      xMax: meanBinIndex,
+      borderColor: '#43a047',
+      borderWidth: 2,
+      label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+    medianAnnotation = {
+      type: 'line',
+      xMin: medianBinIndex,
+      xMax: medianBinIndex,
+      borderColor: '#ff9800',
+      borderWidth: 2,
+      label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+    modeAnnotation = {
+      type: 'line',
+      xMin: modeBinIndex,
+      xMax: modeBinIndex,
+      borderColor: '#e53935',
+      borderWidth: 2,
+      label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+
+  } else {
+    xScaleType = 'linear';
+    const labels = [...new Set(dataset.items)].sort((a, b) => a - b);
+    const frequencies = Object.values(dataset.frequencies);
+    histogramData = labels.map((value, i) => ({ x: value, y: frequencies[i] }));
+
+    meanValue = dataset.arithmeticMean;
+    medianValue = dataset.quartiles.Q2;
+    modeValue = dataset.mode;
+
+    meanAnnotation = {
+      type: 'line',
+      xMin: meanValue,
+      xMax: meanValue,
+      borderColor: '#43a047',
+      borderWidth: 2,
+      label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+    medianAnnotation = {
+      type: 'line',
+      xMin: medianValue,
+      xMax: medianValue,
+      borderColor: '#ff9800',
+      borderWidth: 2,
+      label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+    modeAnnotation = {
+      type: 'line',
+      xMin: modeValue,
+      xMax: modeValue,
+      borderColor: '#e53935',
+      borderWidth: 2,
+      label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
+    };
+  }
+
+  if (histogramInstance) histogramInstance.destroy();
   showHistogram();
-}
+
+  histogramInstance = new Chart(histogramCtx, {
+    type: 'bar',
+    data: xScaleType === 'category'
+      ? {
+        labels: xLabels,
+        datasets: [{
+          label: 'Frequency',
+          data: histogramData,
+          backgroundColor: 'rgba(33, 150, 243, 0.5)',
+          borderColor: '#2196f3',
+          borderWidth: 1
+        }]
+      }
+      : {
+        datasets: [{
+          label: 'Frequency',
+          data: histogramData,
+          backgroundColor: 'rgba(33, 150, 243, 0.5)',
+          borderColor: '#2196f3',
+          borderWidth: 1
+        }]
+      },
+    options: {
+      scales: {
+        x: Object.assign(
+          {
+            title: { display: true, text: xScaleType === 'category' ? 'Groups' : 'Values' },
+            grid: { color: '#333' },
+            ticks: { color: '#bdbdbd' }
+          },
+          xScaleType === 'linear' ? { type: 'linear' } : {}
+        ),
+        y: {
+          title: { display: true, text: 'Frequency' },
+          beginAtZero: true,
+          grid: { color: '#333' },
+          ticks: { color: '#bdbdbd' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        annotation: {
+          annotations: {
+            meanLine: meanAnnotation,
+            medianLine: medianAnnotation,
+            modeLine: modeAnnotation
+          }
+        }
+      }
+    }
+  });
+};
+
 
 const showChart = () => chartWrapper.classList.add("display");
 

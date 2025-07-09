@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StatPanda - Statistics Calculator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../style.css">
 </head>
+
 <body class="bg-body-tertiary">
 
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">StatPanda</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link" href="../index.html">Frequency Distribution</a>
+                        <a class="nav-link" href="../index.html">Frequency Distribution</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Measures of central tendency</a>
+                        <a class="nav-link active" aria-current="page" href="#">Measures of central tendency</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Measures of variation</a>
+                        <a class="nav-link" href="#">Measures of variation</a>
                     </li>
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Theme
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" id="light-link">Light</a></li>
-                        <li><a class="dropdown-item" href="#" id="dark-link">Dark</a></li>
-                    </ul>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Theme
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="light-link">Light</a></li>
+                            <li><a class="dropdown-item" href="#" id="dark-link">Dark</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -44,19 +51,27 @@
     <main class="container mb-3">
         <div class="text-wrapper text-center">
             <h1 class="display-3 fw-bold">StatPanda</h1>
-            <p>This app helps you calculate and visualize relative frequencies and other basic statistical measures from your data.</p>
+            <p>This app helps you calculate and visualize relative frequencies and other basic statistical measures from
+                your data.</p>
         </div>
 
         <div class="border border-1 rounded p-3" id="tendency">
             <div class="text-wrapper">
                 <h3>Measures of central tendency</h3>
-                <p><strong>Measures of central tendency</strong> are statistics that describe the “center” or typical value in a dataset. The most common are the <strong>mean</strong> (average), <strong>median</strong> (middle value), and <strong>mode</strong> (most frequent value). These measures help us summarize a set of numbers with a single value that best represents the entire dataset. Additionally, quartiles divide the data into four parts, helping us understand its spread and identify outliers. By calculating these values, we gain insight into where most data points are concentrated and how the data is distributed around the center.</p>
+                <p><strong>Measures of central tendency</strong> are statistics that describe the “center” or typical
+                    value in a dataset. The most common are the <strong>mean</strong> (average), <strong>median</strong>
+                    (middle value), and <strong>mode</strong> (most frequent value). These measures help us summarize a
+                    set of numbers with a single value that best represents the entire dataset. Additionally, quartiles
+                    divide the data into four parts, helping us understand its spread and identify outliers. By
+                    calculating these values, we gain insight into where most data points are concentrated and how the
+                    data is distributed around the center.</p>
                 <hr>
             </div>
             <div class="input-group mb-3 interval-option">
                 <span class="input-group-text" id="nSamplesSpan">Grouped Data</span>
                 <div class="input-group-text">
-                    <input class="form-check-input mt-0" type="checkbox" value="" id="intervalCb" aria-label="Checkbox if we should represent data with intervals">
+                    <input class="form-check-input mt-0" type="checkbox" value="" id="intervalCb"
+                        aria-label="Checkbox if we should represent data with intervals">
                 </div>
             </div>
             <div class="input-group mb-3 input-sample-count">
@@ -64,43 +79,44 @@
                 <input type="number" min="1" max="100" class="form-control" id="nSamples">
                 <button type="button" class="btn btn-primary" id="addBtn">Add</button>
             </div>
-            
+
             <div class="input-group mb-3 input-samples">
             </div>
-            
+
             <div class="d-flex align-items-center gap-2 mb-3 button-controls">
                 <button type="button" id="generateBtn" class="btn btn-primary" data-type="tendency">Generate</button>
-                
+
                 <label for="fileInput" class="btn btn-primary mb-0">Upload File</label>
                 <input type="file" id="fileInput" class="d-none" accept=".txt">
-                
+
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="showDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="showDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         Show
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="showDropdown" style="min-width: 180px;">
                         <li>
-                        <label class="dropdown-item">
-                            <input type="checkbox" class="show-option show-table" value="table" checked>
-                            Table
-                        </label>
+                            <label class="dropdown-item">
+                                <input type="checkbox" class="show-option show-table" value="table" checked>
+                                Table
+                            </label>
                         </li>
                         <li>
-                        <label class="dropdown-item">
-                            <input type="checkbox" class="show-option show-boxplot" value="boxplot" checked>
-                            Boxplot
-                        </label>
+                            <label class="dropdown-item">
+                                <input type="checkbox" class="show-option show-boxplot" value="boxplot" checked>
+                                Boxplot
+                            </label>
                         </li>
                         <li>
-                        <label class="dropdown-item">
-                            <input type="checkbox" class="show-option show-histogram" value="histogram" checked>
-                            Histogram
-                        </label>
+                            <label class="dropdown-item">
+                                <input type="checkbox" class="show-option show-histogram" value="histogram" checked>
+                                Histogram
+                            </label>
                         </li>
                     </ul>
-                    </div>
+                </div>
 
-                
+
                 <button type="button" id="exportPDFBtn" class="btn btn-success">Export PDF</button>
                 <button type="button" id="clearBtn" class="btn btn-danger ms-auto">Clear</button>
             </div>
@@ -113,14 +129,14 @@
             <hr>
 
             <div class="text-wrapper info-wrapper" id="infoShow">
-                
+
             </div>
 
             <div class="table-wrapper">
                 <h4 class="text-center">Table</h4>
                 <table class="table table-striped border border-1 rounded">
                     <thead>
-                        
+
                     </thead>
                     <tbody class="table-group-divider">
 
@@ -133,9 +149,21 @@
                 <canvas id="chart"></canvas>
             </div>
 
+
             <div class="histogram-wrapper">
                 <h4 class="text-center">Histogram</h4>
-                <p class="text-center">This feature will be implemented very soon :D</p>
+                <canvas id="histogram"></canvas>
+                <div class="histogram-legend" style="margin-top: 10px;">
+                    <span
+                        style="display:inline-block;width:18px;height:3px;background:#43a047;vertical-align:middle;margin-right:4px;"></span>
+                    <span style="margin-right:12px;">Mean</span>
+                    <span
+                        style="display:inline-block;width:18px;height:3px;background:#ff9800;vertical-align:middle;margin-right:4px;"></span>
+                    <span style="margin-right:12px;">Median</span>
+                    <span
+                        style="display:inline-block;width:18px;height:3px;background:#e53935;vertical-align:middle;margin-right:4px;"></span>
+                    <span>Mode</span>
+                </div>
             </div>
         </div>
     </main>
@@ -144,19 +172,32 @@
         <div class="text-wrapper text-center mb-3">
             <span>Developed by Luka!</span>
             <div class="links">
-                <a href="https://github.com/RileDev" class="text-primary" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/luka-risti%C4%87-a47323224/" class="text-primary" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/RileDev" class="text-primary" target="_blank"><i
+                        class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/luka-risti%C4%87-a47323224/" class="text-primary"
+                    target="_blank"><i class="fa-brands fa-linkedin"></i></a>
             </div>
         </div>
     </footer>
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"
+        integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
     <script src="https://unpkg.com/@sgratzl/chartjs-chart-boxplot@3"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js" integrity="sha512-JizZOUNesiGhMcp9fsA/9W31FOat6QysBM8hSj6ir8iIANIUJ2mhko7Lo1+j0ErftmJ8SebMZLm9iielKjeIEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.1.0/chartjs-plugin-annotation.min.js"
+        integrity="sha512-8MntMizyPIYkcjoDkYqgrQOuWOZsp92zlZ9d7M2RCG0s1Zua8H215p2PdsxS7qg/4hLrHrdPsZgVZpXheHYT+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"
+        integrity="sha512-JizZOUNesiGhMcp9fsA/9W31FOat6QysBM8hSj6ir8iIANIUJ2mhko7Lo1+j0ErftmJ8SebMZLm9iielKjeIEQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="../main.js"></script>
     <script src="../js/theme-select.js"></script>
-</body> 
+</body>
+
 </html>
