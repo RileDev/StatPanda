@@ -2,12 +2,12 @@ const tableWrapper = document.querySelector(".table-wrapper");
 const tableHead = document.querySelector(".table-wrapper thead");
 const tableBody = document.querySelector(".table-wrapper tbody");
 
-export function displayTable(data){
-    if(data == null) {
+export function displayTable(data) {
+    if (data == null) {
         hideTable()
         return;
     }
-    
+
     const rows = data["dataset"].k;
     const hasIntervals = data["dataset"].hasIntervals;
     const items = data["dataset"].items;
@@ -21,10 +21,10 @@ export function displayTable(data){
     showTable();
     initializeHead(hasIntervals, midpointsOfIthClass, cumulativeBelow, cumulativeAbove, relativeFrequencies, cumulativeFrequencies);
     tableBody.innerHTML = "";
-    
-    for(let i = 0; i < rows; i++){
-        tableBody.innerHTML += 
-        `
+
+    for (let i = 0; i < rows; i++) {
+        tableBody.innerHTML +=
+            `
             <tr>
                 <td>${hasIntervals ? items[i].min + " - " + items[i].max : items[i]}</td>
                 <td>${hasIntervals ? frequencies[i].frequency : Object.values(frequencies)[i]}</td>
@@ -43,7 +43,7 @@ const showTable = () => tableWrapper.classList.add("display");
 
 const hideTable = () => {
     tableBody.innerHTML = "";
-    if(tableWrapper.classList.contains("display"))
+    if (tableWrapper.classList.contains("display"))
         tableWrapper.classList.remove("display");
 }
 

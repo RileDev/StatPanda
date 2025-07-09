@@ -28,48 +28,60 @@ addBtn.addEventListener("click", () => generateSampleFields(parseInt(nSamples.va
 
 fileInput.addEventListener("change", e => {
     readFromFile(e);
-    setTimeout(() => {fileInput.value = ""}, 500);
+    setTimeout(() => { fileInput.value = "" }, 500);
 });
 
 generateBtn.addEventListener("click", () => {
     const data = fetchData();
+    const groupedData = intervalCb.checked;
+    const statisticsType = generateBtn.dataset.type;
 
-    switch(generateBtn.dataset.type){
+    switch (statisticsType) {
         case "freq-dist":
-            statistics = new FrequencyDistribution(data, intervalCb.checked); 
+            statistics = new FrequencyDistribution(data, groupedData);
             displayInfo(statistics.json);
             displayTable(statistics.json);
-            chart = displayChart(statistics.json); 
+            chart = displayChart(statistics.json);
             break;
         case "tendency":
-            statistics = new Tendency(data, intervalCb.checked);
+            statistics = new Tendency(data, groupedData);
             displayInfo(statistics.json);
-            if(showOptions[0].checked)
+            if (showOptions[0].checked)
                 displayTable(statistics.json);
             else
                 displayTable(null);
-            if(showOptions[1].checked)
-                chart = displayBoxplot(statistics.json); 
-            else{
+            if (showOptions[1].checked)
+                chart = displayBoxplot(statistics.json, statisticsType);
+            else {
                 chart = null;
                 displayBoxplot(null);
             }
-            if(showOptions[2].checked)
-                displayHistogram(statistics.json)
+            if (showOptions[2].checked)
+                displayHistogram(statistics.json, statisticsType)
             else
-                displayHistogram(null)  
+                displayHistogram(null)
             break;
 
         case "variation":
-            statistics = new Variation(data, intervalCb.checked);
-            displayInfo(statistics.json);        
-            if(showOptions[0].checked)
+            statistics = new Variation(data, groupedData);
+            displayInfo(statistics.json);
+            if (showOptions[0].checked)
                 displayTable(statistics.json);
             else
                 displayTable(null);
-            break;  
+            if (showOptions[1].checked)
+                chart = displayBoxplot(statistics.json, statisticsType);
+            else {
+                chart = null;
+                displayBoxplot(null);
+            }
+            if (showOptions[2].checked)
+                displayHistogram(statistics.json, statisticsType)
+            else
+                displayHistogram(null)
+            break;
     }
-    
+
 })
 
 clearBtn.addEventListener("click", () => clearContents())
@@ -80,13 +92,13 @@ exportPDFBtn.addEventListener("click", () => {
 
 const clearContents = () => {
     statistics = null;
-    try{
+    try {
         clearUploadedMessage();
         clearSampleFields();
         displayInfo(null);
         displayTable(null);
         displayChart(null);
         displayHistogram(null);
-    }catch(e) {}
-    
+    } catch (e) { }
+
 }

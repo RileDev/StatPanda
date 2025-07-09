@@ -113,15 +113,13 @@ const getChart = (type, label, labels, data, datasets = null) => {
   });
 };
 
-export function displayBoxplot(data) {
+export function displayBoxplot(data, type = "tendency") {
   if (!data || data.length === 0) {
     hideChart();
     return;
   }
-
   const stats = data["dataset"];
   let min, max;
-
   if (stats.hasIntervals) {
     min = stats.items[0].min;
     max = stats.items[stats.items.length - 1].max;
@@ -129,24 +127,16 @@ export function displayBoxplot(data) {
     min = Math.min(...stats.data);
     max = Math.max(...stats.data);
   }
-
-
-  const boxplotData = [
-    {
-      min: min,
-      q1: stats.quartiles.Q1,
-      median: stats.quartiles.Q2,
-      mean: stats.arithmeticMean,
-      q3: stats.quartiles.Q3,
-      max: max
-    }
-  ]
-
+  const boxplotData = [{
+    min: min,
+    q1: stats.quartiles.Q1,
+    median: stats.quartiles.Q2,
+    mean: stats.arithmeticMean,
+    q3: stats.quartiles.Q3,
+    max: max
+  }];
   showChart();
-
-  if (chartInstance)
-    chartInstance.destroy();
-
+  if (chartInstance) chartInstance.destroy();
   chartInstance = new Chart(ctx, {
     type: 'boxplot',
     data: {
@@ -182,7 +172,13 @@ export function displayBoxplot(data) {
           backgroundColor: '#263238',
           bodyColor: '#fff',
           titleColor: '#90caf9'
-        }
+        },
+        title: type === "variation" ? {
+          display: true,
+          text: `σ: ${stats.standardDeviation.toFixed(2)}, CV: ${stats.coefficientOfVariation.toFixed(2)}%`,
+          color: "#43a047",
+          font: { size: 16 }
+        } : undefined
       },
       scales: {
         x: {
@@ -210,129 +206,87 @@ export function displayBoxplot(data) {
       }
     }
   });
-
   return chartInstance;
 }
 
-export const displayHistogram = data => {
+export const displayHistogram = (data, type = "tendency") => {
   if (!data) {
     hideHistogram();
     return;
   }
-
   const dataset = data["dataset"];
-  let histogramData, xScaleType, xLabels, meanValue, medianValue, modeValue, meanAnnotation, medianAnnotation, modeAnnotation;
-
+  let histogramData, xScaleType, xLabels, meanAnnotation, medianAnnotation, modeAnnotation, stdDevBand;
   if (dataset.hasIntervals) {
     xScaleType = 'category';
     xLabels = dataset.items.map(item => `${item.min}-${item.max}`);
     histogramData = dataset.frequencies.map(f => f.frequency);
-
     function getBinIndex(value, items) {
       for (let i = 0; i < items.length; i++) {
         if (value >= items[i].min && value <= items[i].max) return i;
       }
       return 0;
     }
-
     const meanBinIndex = getBinIndex(dataset.arithmeticMean, dataset.items);
     const medianBinIndex = getBinIndex(dataset.quartiles.Q2, dataset.items);
     const modeBinIndex = getBinIndex(dataset.mode, dataset.items);
-
-    meanAnnotation = {
-      type: 'line',
-      xMin: meanBinIndex,
-      xMax: meanBinIndex,
-      borderColor: '#43a047',
-      borderWidth: 2,
-      label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
-    medianAnnotation = {
-      type: 'line',
-      xMin: medianBinIndex,
-      xMax: medianBinIndex,
-      borderColor: '#ff9800',
-      borderWidth: 2,
-      label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
-    modeAnnotation = {
-      type: 'line',
-      xMin: modeBinIndex,
-      xMax: modeBinIndex,
-      borderColor: '#e53935',
-      borderWidth: 2,
-      label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
-
+    meanAnnotation = { type: 'line', xMin: meanBinIndex, xMax: meanBinIndex, borderColor: '#43a047', borderWidth: 2, label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    medianAnnotation = { type: 'line', xMin: medianBinIndex, xMax: medianBinIndex, borderColor: '#ff9800', borderWidth: 2, label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    modeAnnotation = { type: 'line', xMin: modeBinIndex, xMax: modeBinIndex, borderColor: '#e53935', borderWidth: 2, label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    if (type === "variation") {
+      const stdDev = dataset.standardDeviation;
+      const lowerStdBin = getBinIndex(dataset.arithmeticMean - stdDev, dataset.items);
+      const upperStdBin = getBinIndex(dataset.arithmeticMean + stdDev, dataset.items);
+      stdDevBand = {
+        type: 'box',
+        xMin: lowerStdBin,
+        xMax: upperStdBin,
+        backgroundColor: 'rgba(67, 160, 71, 0.08)',
+        borderColor: '#43a047',
+        borderWidth: 1,
+        label: { content: '±σ', enabled: true, color: '#43a047', backgroundColor: '#fff', position: 'center' }
+      };
+    }
   } else {
     xScaleType = 'linear';
     const labels = [...new Set(dataset.items)].sort((a, b) => a - b);
     const frequencies = Object.values(dataset.frequencies);
     histogramData = labels.map((value, i) => ({ x: value, y: frequencies[i] }));
-
-    meanValue = dataset.arithmeticMean;
-    medianValue = dataset.quartiles.Q2;
-    modeValue = dataset.mode;
-
-    meanAnnotation = {
-      type: 'line',
-      xMin: meanValue,
-      xMax: meanValue,
-      borderColor: '#43a047',
-      borderWidth: 2,
-      label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
-    medianAnnotation = {
-      type: 'line',
-      xMin: medianValue,
-      xMax: medianValue,
-      borderColor: '#ff9800',
-      borderWidth: 2,
-      label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
-    modeAnnotation = {
-      type: 'line',
-      xMin: modeValue,
-      xMax: modeValue,
-      borderColor: '#e53935',
-      borderWidth: 2,
-      label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' }
-    };
+    const meanValue = dataset.arithmeticMean;
+    const medianValue = dataset.quartiles.Q2;
+    const modeValue = dataset.mode;
+    meanAnnotation = { type: 'line', xMin: meanValue, xMax: meanValue, borderColor: '#43a047', borderWidth: 2, label: { content: 'Mean', enabled: true, color: '#43a047', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    medianAnnotation = { type: 'line', xMin: medianValue, xMax: medianValue, borderColor: '#ff9800', borderWidth: 2, label: { content: 'Median', enabled: true, color: '#ff9800', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    modeAnnotation = { type: 'line', xMin: modeValue, xMax: modeValue, borderColor: '#e53935', borderWidth: 2, label: { content: 'Mode', enabled: true, color: '#e53935', backgroundColor: '#fff', font: { weight: 'bold' }, position: 'start' } };
+    if (type === "variation") {
+      const stdDev = dataset.standardDeviation;
+      stdDevBand = {
+        type: 'box',
+        xMin: meanValue - stdDev,
+        xMax: meanValue + stdDev,
+        backgroundColor: 'rgba(67, 160, 71, 0.08)',
+        borderColor: '#43a047',
+        borderWidth: 1,
+        label: { content: '±σ', enabled: true, color: '#43a047', backgroundColor: '#fff', position: 'center' }
+      };
+    }
   }
-
   if (histogramInstance) histogramInstance.destroy();
   showHistogram();
-
+  const annotationPlugins = {
+    meanLine: meanAnnotation,
+    medianLine: medianAnnotation,
+    modeLine: modeAnnotation,
+    ...(type === "variation" && stdDevBand ? { stdDevBand } : {})
+  };
   histogramInstance = new Chart(histogramCtx, {
     type: 'bar',
     data: xScaleType === 'category'
-      ? {
-        labels: xLabels,
-        datasets: [{
-          label: 'Frequency',
-          data: histogramData,
-          backgroundColor: 'rgba(33, 150, 243, 0.5)',
-          borderColor: '#2196f3',
-          borderWidth: 1
-        }]
-      }
-      : {
-        datasets: [{
-          label: 'Frequency',
-          data: histogramData,
-          backgroundColor: 'rgba(33, 150, 243, 0.5)',
-          borderColor: '#2196f3',
-          borderWidth: 1
-        }]
-      },
+      ? { labels: xLabels, datasets: [{ label: 'Frequency', data: histogramData, backgroundColor: 'rgba(33, 150, 243, 0.5)', borderColor: '#2196f3', borderWidth: 1 }] }
+      : { datasets: [{ label: 'Frequency', data: histogramData, backgroundColor: 'rgba(33, 150, 243, 0.5)', borderColor: '#2196f3', borderWidth: 1 }] },
     options: {
       scales: {
         x: Object.assign(
-          {
-            title: { display: true, text: xScaleType === 'category' ? 'Groups' : 'Values' },
-            grid: { color: '#333' },
-            ticks: { color: '#bdbdbd' }
-          },
+          { title: { display: true, text: xScaleType === 'category' ? 'Groups' : 'Values' }, grid: { color: '#333' }, ticks: { color: '#bdbdbd' } },
           xScaleType === 'linear' ? { type: 'linear' } : {}
         ),
         y: {
@@ -344,13 +298,7 @@ export const displayHistogram = data => {
       },
       plugins: {
         legend: { display: false },
-        annotation: {
-          annotations: {
-            meanLine: meanAnnotation,
-            medianLine: medianAnnotation,
-            modeLine: modeAnnotation
-          }
-        }
+        annotation: { annotations: annotationPlugins }
       }
     }
   });

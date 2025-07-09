@@ -1,7 +1,7 @@
 const infoWrapper = document.getElementById("infoShow");
 
-export function displayInfo(data){
-    if(data === null){
+export function displayInfo(data) {
+    if (data === null) {
         hideInfo()
         return;
     }
@@ -24,8 +24,8 @@ export function displayInfo(data){
     const skewness = data["dataset"].skewness || null;
     const kurtosis = data["dataset"].kurtosis || null;
 
-    try{
-        infoWrapper.innerHTML = 
+    try {
+        infoWrapper.innerHTML =
             `
                 <p>N: ${n}</p>
                 <p>k: ${k}</p>
@@ -43,19 +43,19 @@ export function displayInfo(data){
                 ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(3)}</p>` : ""}
                 ${variance ? `<p>Variance (𝜎2): ${variance.toFixed(2)}</p>` : ""}
                 ${standardDeviation ? `<p>Standard Deviation (𝜎): ${standardDeviation.toFixed(2)}</p>` : ""}
-                ${coefficientOfVariation ? `<p>Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%</p>` : ""}
+                ${coefficientOfVariation ? `<p>Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}</p>` : ""}
                 ${skewness ? `<p>Skewness (α3): ${skewness.toFixed(2)}</p>` : ""}
                 ${kurtosis ? `<p>Kurtosis (α4): ${kurtosis.toFixed(2)}</p>` : ""}
             <hr>
             `;
-    }catch(e){}
-    
+    } catch (e) { }
+
 }
 
 const showInfo = () => infoWrapper.classList.add("display");
 
 const hideInfo = () => {
     infoWrapper.innerHTML = "";
-    if(infoWrapper.classList.contains("display"))
+    if (infoWrapper.classList.contains("display"))
         infoWrapper.classList.remove("display");
 }
