@@ -1,20 +1,20 @@
 import { Tendency } from "./tendency.js";
 
-export class Variation extends Tendency{
-    constructor(rawData, hasIntervals){
+export class Variation extends Tendency {
+    constructor(rawData, hasIntervals) {
         super(rawData, hasIntervals);
     }
 
-    getRange(){
+    getRange() {
         let min = 0;
         let max = 0;
 
-        if(this.hasIntervals){
+        if (this.hasIntervals) {
             const frequencies = this.getFrequencies();
             min = frequencies[0].min;
             max = frequencies[frequencies.length - 1].max;
-            
-        }else {
+
+        } else {
             min = Math.min(...this.rawData);
             max = Math.max(...this.rawData);
         }
@@ -22,25 +22,25 @@ export class Variation extends Tendency{
         return max - min;
     }
 
-    getMeanAbsoluteDeviation(){
+    getMeanAbsoluteDeviation() {
         const n = this.count;
         const frequencies = this.getFrequencies();
         const mean = this.getArithmeticMean();
 
         let sum = 0;
 
-        if(this.hasIntervals){
+        if (this.hasIntervals) {
             const xs = this.getMidpointsOfIthClass(frequencies);
-            
+
             for (let i = 0; i < frequencies.length; i++) {
                 const frequency = frequencies[i].frequency;
                 sum += frequency * Math.abs(xs[i] - mean);
             }
-        }else{
+        } else {
             for (let i = 0; i < this.k; i++) {
                 const frequency = Object.values(frequencies)[i];
                 const item = Object.keys(frequencies)[i];
-                
+
                 sum += frequency * Math.abs(Number(item) - mean);
             }
         }
@@ -48,7 +48,42 @@ export class Variation extends Tendency{
         return sum / n;
     }
 
-    get json(){
+    getVariance() {
+        const n = this.count;
+        const frequencies = this.getFrequencies();
+        const mean = this.getArithmeticMean();
+
+        let sum = 0;
+        let variance = 0;
+
+        if (this.hasIntervals) {
+            const xs = this.getMidpointsOfIthClass(frequencies);
+
+            for (let i = 0; i < frequencies.length; i++) {
+                const frequency = frequencies[i].frequency;
+                sum += frequency * Math.pow(xs[i], 2);
+            }
+
+            variance = (sum / n) - Math.pow(mean, 2);
+        } else {
+            for (let i = 0; i < this.k; i++) {
+                const frequency = Object.values(frequencies)[i];
+                const item = Object.keys(frequencies)[i];
+
+                sum += frequency * Math.pow(item, 2);
+            }
+
+            variance = (sum / n) - Math.pow(mean, 2);
+        }
+
+        return variance;
+    }
+
+    getStandardDeviation() {
+        return Math.sqrt(this.getVariance());
+    }
+
+    get json() {
         return {
             dataset: {
                 data: this.rawData,
@@ -58,12 +93,15 @@ export class Variation extends Tendency{
                 hasIntervals: this.hasIntervals,
                 items: this.getItems(),
                 frequencies: this.getFrequencies(),
+                midpointsOfIthClass: this.getMidpointsOfIthClass(this.getFrequencies()),
                 arithmeticMean: this.getArithmeticMean(),
                 quartiles: this.getQuartiles(),
                 median: this.getMedian(),
                 mode: this.getMode(),
                 range: this.getRange(),
-                meanAbsoluteDeviation: this.getMeanAbsoluteDeviation()
+                meanAbsoluteDeviation: this.getMeanAbsoluteDeviation(),
+                variance: this.getVariance(),
+                standardDeviation: this.getStandardDeviation()
             },
         };
     }

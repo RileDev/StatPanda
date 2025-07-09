@@ -63,6 +63,8 @@ generateBtn.addEventListener("click", () => {
         case "variation":
             statistics = new Variation(data, intervalCb.checked);
             displayInfo(statistics.json);
+            console.log(statistics.getStandardDeviation());
+            
             break;  
     }
     

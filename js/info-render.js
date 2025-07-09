@@ -18,6 +18,8 @@ export function displayInfo(data){
     const quartiles = data["dataset"].quartiles || null;
     const range = data["dataset"].range || null;
     const meanAbsoluteDeviation = data["dataset"].meanAbsoluteDeviation || null;
+    const variance = data["dataset"].variance || null;
+    const standardDeviation = data["dataset"].standardDeviation || null;
 
     try{
         infoWrapper.innerHTML = 
@@ -36,6 +38,8 @@ export function displayInfo(data){
                 ${quartiles ? `<p>Q3: ${quartiles.Q3.toFixed(2)}</p>` : ""}
                 ${range ? `<p>Range: ${range}</p>` : ""}
                 ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(4)}</p>` : ""}
+                ${variance ? `<p>Variance: ${variance.toFixed(2)}</p>` : ""}
+                ${standardDeviation ? `<p>Standard Deviation: ${standardDeviation.toFixed(2)}</p>` : ""}
             <hr>
             `;
     }catch(e){}
