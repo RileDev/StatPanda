@@ -35,17 +35,17 @@ export function displayInfo(data){
                 ${harmonicMean ? `<p>Harmonic Mean: ${harmonicMean.toFixed(2)}</p>` : ""}
                 ${median ? `<p>Median: ${median.toFixed(2)}</p>` : ""}
                 ${mode ? `<p>Mode: ${mode.toFixed(2)}</p>` : ""}
-                ${quartiles ? `<p><strong>Quartiles: </strong></p>` : ""}
+                ${quartiles ? `<hr><p><strong>Quartiles: </strong></p>` : ""}
                 ${quartiles ? `<p>Q1: ${quartiles.Q1.toFixed(2)}</p>` : ""}
                 ${quartiles ? `<p>Q2: ${quartiles.Q2.toFixed(2)}</p>` : ""}
                 ${quartiles ? `<p>Q3: ${quartiles.Q3.toFixed(2)}</p>` : ""}
-                ${range ? `<p>Range: ${range}</p>` : ""}
-                ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(4)}</p>` : ""}
-                ${variance ? `<p>Variance: ${variance.toFixed(2)}</p>` : ""}
-                ${standardDeviation ? `<p>Standard Deviation: ${standardDeviation.toFixed(2)}</p>` : ""}
+                ${range ? `<hr><p>Range: ${range}</p>` : ""}
+                ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(3)}</p>` : ""}
+                ${variance ? `<p>Variance (𝜎2): ${variance.toFixed(2)}</p>` : ""}
+                ${standardDeviation ? `<p>Standard Deviation (𝜎): ${standardDeviation.toFixed(2)}</p>` : ""}
                 ${coefficientOfVariation ? `<p>Coefficient of variation: ${coefficientOfVariation.toFixed(2)}</p>` : ""}
-                ${skewness ? `<p>Skewness: ${skewness.toFixed(2)}</p>` : ""}
-                ${kurtosis ? `<p>Kurtosis: ${kurtosis.toFixed(2)}</p>` : ""}
+                ${skewness ? `<p>Skewness (α3): ${skewness.toFixed(2)}</p>` : ""}
+                ${kurtosis ? `<p>Kurtosis (α4): ${kurtosis.toFixed(2)}</p>` : ""}
             <hr>
             `;
     }catch(e){}

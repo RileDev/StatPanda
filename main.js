@@ -45,7 +45,7 @@ generateBtn.addEventListener("click", () => {
             statistics = new Tendency(data, intervalCb.checked);
             displayInfo(statistics.json);
             if(showOptions[0].checked)
-                displayTable(statistics.json, true);
+                displayTable(statistics.json);
             else
                 displayTable(null);
             if(showOptions[1].checked)
@@ -63,7 +63,10 @@ generateBtn.addEventListener("click", () => {
         case "variation":
             statistics = new Variation(data, intervalCb.checked);
             displayInfo(statistics.json);        
-                
+            if(showOptions[0].checked)
+                displayTable(statistics.json);
+            else
+                displayTable(null);
             break;  
     }
     
