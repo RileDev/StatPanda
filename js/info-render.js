@@ -43,7 +43,7 @@ export function displayInfo(data){
                 ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(3)}</p>` : ""}
                 ${variance ? `<p>Variance (𝜎2): ${variance.toFixed(2)}</p>` : ""}
                 ${standardDeviation ? `<p>Standard Deviation (𝜎): ${standardDeviation.toFixed(2)}</p>` : ""}
-                ${coefficientOfVariation ? `<p>Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}</p>` : ""}
+                ${coefficientOfVariation ? `<p>Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%</p>` : ""}
                 ${skewness ? `<p>Skewness (α3): ${skewness.toFixed(2)}</p>` : ""}
                 ${kurtosis ? `<p>Kurtosis (α4): ${kurtosis.toFixed(2)}</p>` : ""}
             <hr>
