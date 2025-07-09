@@ -5,6 +5,60 @@ export class Variation extends Tendency {
         super(rawData, hasIntervals);
     }
 
+    #getCentralMomentThirdOrder() {
+        const n = this.count;
+        const frequencies = this.getFrequencies();
+        const mean = this.getArithmeticMean();
+
+        let sum = 0;
+
+        if (this.hasIntervals) {
+            const xs = this.getMidpointsOfIthClass(frequencies);
+
+            for (let i = 0; i < frequencies.length; i++) {
+                const frequency = frequencies[i].frequency;
+                sum += frequency * Math.pow((xs[i] - mean), 3);
+            }
+        } else {
+            for (let i = 0; i < this.k; i++) {
+                const frequency = Object.values(frequencies)[i];
+                const item = Object.keys(frequencies)[i];
+
+                sum += frequency * Math.pow((Number(item) - mean), 3);
+            }
+
+        }
+
+        return sum / n;
+    }
+
+    #getCentralMomentFourthOrder() {
+        const n = this.count;
+        const frequencies = this.getFrequencies();
+        const mean = this.getArithmeticMean();
+
+        let sum = 0;
+
+        if (this.hasIntervals) {
+            const xs = this.getMidpointsOfIthClass(frequencies);
+
+            for (let i = 0; i < frequencies.length; i++) {
+                const frequency = frequencies[i].frequency;
+                sum += frequency * Math.pow((xs[i] - mean), 4);
+            }
+        } else {
+            for (let i = 0; i < this.k; i++) {
+                const frequency = Object.values(frequencies)[i];
+                const item = Object.keys(frequencies)[i];
+
+                sum += frequency * Math.pow((Number(item) - mean), 4);
+            }
+
+        }
+
+        return sum / n;
+    }
+
     getRange() {
         let min = 0;
         let max = 0;
@@ -83,6 +137,24 @@ export class Variation extends Tendency {
         return Math.sqrt(this.getVariance());
     }
 
+    getCoefficientOfVariation() {
+        const stdDev = this.getStandardDeviation();
+        const mean = this.getArithmeticMean();
+        return (stdDev / mean) * 100;
+    }
+
+    getSkewness() {
+        const M3 = this.#getCentralMomentThirdOrder();
+        const stdDev = this.getStandardDeviation();
+        return M3 / Math.pow(stdDev, 3);
+    }
+
+    getKurtosis() {
+        const M4 = this.#getCentralMomentFourthOrder();
+        const stdDev = this.getStandardDeviation();
+        return M4 / Math.pow(stdDev, 4);
+    }
+
     get json() {
         return {
             dataset: {
@@ -101,7 +173,10 @@ export class Variation extends Tendency {
                 range: this.getRange(),
                 meanAbsoluteDeviation: this.getMeanAbsoluteDeviation(),
                 variance: this.getVariance(),
-                standardDeviation: this.getStandardDeviation()
+                standardDeviation: this.getStandardDeviation(),
+                coefficientOfVariation: this.getCoefficientOfVariation(),
+                skewness: this.getSkewness(),
+                kurtosis: this.getKurtosis()
             },
         };
     }

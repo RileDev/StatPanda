@@ -20,6 +20,9 @@ export function displayInfo(data){
     const meanAbsoluteDeviation = data["dataset"].meanAbsoluteDeviation || null;
     const variance = data["dataset"].variance || null;
     const standardDeviation = data["dataset"].standardDeviation || null;
+    const coefficientOfVariation = data["dataset"].coefficientOfVariation || null;
+    const skewness = data["dataset"].skewness || null;
+    const kurtosis = data["dataset"].kurtosis || null;
 
     try{
         infoWrapper.innerHTML = 
@@ -40,6 +43,9 @@ export function displayInfo(data){
                 ${meanAbsoluteDeviation ? `<p>Mean Absolute Deviation: ${meanAbsoluteDeviation.toFixed(4)}</p>` : ""}
                 ${variance ? `<p>Variance: ${variance.toFixed(2)}</p>` : ""}
                 ${standardDeviation ? `<p>Standard Deviation: ${standardDeviation.toFixed(2)}</p>` : ""}
+                ${coefficientOfVariation ? `<p>Coefficient of variation: ${coefficientOfVariation.toFixed(2)}</p>` : ""}
+                ${skewness ? `<p>Skewness: ${skewness.toFixed(2)}</p>` : ""}
+                ${kurtosis ? `<p>Kurtosis: ${kurtosis.toFixed(2)}</p>` : ""}
             <hr>
             `;
     }catch(e){}
