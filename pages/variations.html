@@ -28,10 +28,10 @@
                         <a class="nav-link" href="../index.html">Frequency Distribution</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Measures of central tendency</a>
+                        <a class="nav-link" href="./tendency.html">Measures of central tendency</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./variations.html">Measures of variation</a>
+                        <a class="nav-link active" aria-current="page" href="#">Measures of variation</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -55,16 +55,14 @@
                 your data.</p>
         </div>
 
-        <div class="border border-1 rounded p-3" id="tendency">
+        <div class="border border-1 rounded p-3" id="frequencyDistribution">
             <div class="text-wrapper">
-                <h3>Measures of central tendency</h3>
-                <p><strong>Measures of central tendency</strong> are statistics that describe the “center” or typical
-                    value in a dataset. The most common are the <strong>mean</strong> (average), <strong>median</strong>
-                    (middle value), and <strong>mode</strong> (most frequent value). These measures help us summarize a
-                    set of numbers with a single value that best represents the entire dataset. Additionally, quartiles
-                    divide the data into four parts, helping us understand its spread and identify outliers. By
-                    calculating these values, we gain insight into where most data points are concentrated and how the
-                    data is distributed around the center.</p>
+                <h3>Frequency Distribution</h3>
+                <p>Frequency distribution helps us organize raw data into groups or intervals, showing how often each
+                    value or range appears. For each group, the frequency tells us the count of data points, cumulative
+                    frequency shows the running total up to (or above) that group, and relative frequency (percentage)
+                    expresses the frequency as a proportion of the total number of data points. These parameters make it
+                    easy to analyze patterns and trends within a dataset.</p>
                 <hr>
             </div>
             <div class="input-group mb-3 interval-option">
@@ -84,7 +82,7 @@
             </div>
 
             <div class="d-flex align-items-center gap-2 mb-3 button-controls">
-                <button type="button" id="generateBtn" class="btn btn-primary" data-type="tendency">Generate</button>
+                <button type="button" id="generateBtn" class="btn btn-primary" data-type="variation">Generate</button>
 
                 <label for="fileInput" class="btn btn-primary mb-0">Upload File</label>
                 <input type="file" id="fileInput" class="d-none" accept=".txt">
@@ -98,7 +96,7 @@
                         <li>
                             <label class="dropdown-item">
                                 <input type="checkbox" class="show-option show-table" value="table" checked>
-                                Table
+                                Frequency Table
                             </label>
                         </li>
                         <li>
@@ -116,7 +114,6 @@
                     </ul>
                 </div>
 
-
                 <button type="button" id="exportPDFBtn" class="btn btn-success" disabled>Export PDF</button>
                 <button type="button" id="clearBtn" class="btn btn-danger ms-auto">Clear</button>
             </div>
@@ -132,8 +129,9 @@
 
             </div>
 
+
             <div class="table-wrapper">
-                <h4 class="text-center">Table</h4>
+                <h4 class="text-center">Frequency Table</h4>
                 <table class="table table-striped border border-1 rounded">
                     <thead>
 
@@ -149,7 +147,6 @@
                 <canvas id="chart"></canvas>
             </div>
 
-
             <div class="histogram-wrapper">
                 <h4 class="text-center">Histogram</h4>
                 <canvas id="histogram"></canvas>
@@ -162,8 +159,12 @@
                     <span style="margin-right:12px;">Median</span>
                     <span
                         style="display:inline-block;width:18px;height:3px;background:#e53935;vertical-align:middle;margin-right:4px;"></span>
-                    <span>Mode</span>
+                    <span style="margin-right:12px;">Mode</span>
+                    <span
+                        style="display:inline-block;width:18px;height:10px;background:rgba(67,160,71,0.15);border:1.5px solid #43a047;vertical-align:middle;margin-right:4px;margin-left:10px;"></span>
+                    <span>±σ (Standard Deviation Band)</span>
                 </div>
+
             </div>
         </div>
     </main>
