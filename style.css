@@ -26,3 +26,39 @@
         width: 30%;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .input-sample-count, .interval-option{
+        width: 50%;
+    }
+
+    .container{
+        max-width: 100%;
+    }
+
+    .button-controls{
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .table-wrapper{
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table{   
+        width: 100%;
+        min-width: 400px;
+    }
+    table th, table td{
+        font-size: .8rem;
+    }
+
+    .sample {
+        width: 60px !important;
+        max-width: 60px !important;
+    }
+
+}
