@@ -39,12 +39,6 @@
     .button-controls{
         flex-wrap: wrap;
     }
-}
-
-@media only screen and (max-width: 425px) {
-     .input-sample-count, .interval-option{
-        width: 100%;
-    }
 
     .table-wrapper{
         width: 100%;
@@ -56,6 +50,24 @@
         width: 100%;
         min-width: 400px;
     }
+    
+}
+
+@media only screen and (max-width: 425px) {
+    .input-sample-count, .interval-option{
+        width: 100%;
+    }
+
+    .text-wrapper p,
+    .text-wrapper strong{
+        font-size: .85rem;
+        margin-bottom: .8rem;
+    }
+
+    .histogram-legend span{
+        font-size: .85rem;
+    }
+
     table th, table td{
         font-size: .8rem;
     }
@@ -63,6 +75,7 @@
     .sample {
         width: 60px !important;
         max-width: 60px !important;
+        font-size: .8rem;
     }
 
 }
