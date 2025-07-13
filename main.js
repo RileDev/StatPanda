@@ -4,7 +4,7 @@ import { displayTable } from "./js/table-render.js";
 import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayBoxplot, displayChart, displayHistogram } from "./js/chart-render.js";
 import { displayInfo } from "./js/info-render.js";
-import { saveFreqDistToPDF } from "./js/pdf-export.js";
+import { saveFreqDistToPDF, saveTendencyToPDF, saveVariationToPDF } from "./js/pdf-export.js";
 import { Tendency } from "./js/classes/tendency.js";
 import { Variation } from "./js/classes/variation.js";
 
@@ -21,6 +21,7 @@ const intervalCb = document.getElementById("intervalCb");
 const uploadedMessage = document.getElementById("uploaded-message");
 
 let statistics = null;
+let histogram = null
 let chart = null;
 
 
@@ -57,9 +58,11 @@ generateBtn.addEventListener("click", () => {
                 displayBoxplot(null);
             }
             if (showOptions[2].checked)
-                displayHistogram(statistics.json, statisticsType)
-            else
+                histogram = displayHistogram(statistics.json, statisticsType)
+            else{
                 displayHistogram(null)
+                histogram = null;
+            }
             break;
 
         case "variation":
@@ -76,10 +79,13 @@ generateBtn.addEventListener("click", () => {
                 displayBoxplot(null);
             }
             if (showOptions[2].checked)
-                displayHistogram(statistics.json, statisticsType)
-            else
+                histogram = displayHistogram(statistics.json, statisticsType)
+            else{
                 displayHistogram(null)
+                histogram = null;
+            }
             break;
+            
     }
 
 })
@@ -93,10 +99,10 @@ exportPDFBtn.addEventListener("click", () => {
             saveFreqDistToPDF(statistics, chart);
             break;
         case "tendency":
-            console.log("Call saveTendencyToPDF() method.");
+            saveTendencyToPDF(statistics, chart, histogram);
             break;
         case "variation":
-            console.log("Call saveVariationToPDF() method.");
+            saveVariationToPDF(statistics, chart, histogram);
             break;
     }
 });

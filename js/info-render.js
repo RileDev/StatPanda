@@ -23,7 +23,7 @@ export function displayInfo(data) {
     const coefficientOfVariation = data["dataset"].coefficientOfVariation || null;
     const skewness = data["dataset"].skewness || null;
     const kurtosis = data["dataset"].kurtosis || null;
-
+    
     try {
         infoWrapper.innerHTML =
             `
