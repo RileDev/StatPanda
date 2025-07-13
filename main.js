@@ -47,17 +47,17 @@ generateBtn.addEventListener("click", () => {
         case "tendency":
             statistics = new Tendency(data, groupedData);
             displayInfo(statistics.json);
-            if (showOptions[0].checked)
+            if (showOptions[0].checked) //show dropdown -> table checkbox
                 displayTable(statistics.json);
             else
                 displayTable(null);
-            if (showOptions[1].checked)
+            if (showOptions[1].checked) //show dropdown -> boxplot checkbox
                 chart = displayBoxplot(statistics.json, statisticsType);
             else {
                 chart = null;
                 displayBoxplot(null);
             }
-            if (showOptions[2].checked)
+            if (showOptions[2].checked) //show dropdown -> histogram checkbox
                 histogram = displayHistogram(statistics.json, statisticsType)
             else{
                 displayHistogram(null)
@@ -94,15 +94,18 @@ clearBtn.addEventListener("click", () => clearContents())
 
 exportPDFBtn.addEventListener("click", () => {
     const statisticsType = generateBtn.dataset.type;
+    let isTableShowChecked = null;
     switch(statisticsType){
         case "freq-dist":
             saveFreqDistToPDF(statistics, chart);
             break;
         case "tendency":
-            saveTendencyToPDF(statistics, chart, histogram);
+            isTableShowChecked = showOptions[0].checked;
+            saveTendencyToPDF(statistics, chart, histogram, isTableShowChecked);
             break;
         case "variation":
-            saveVariationToPDF(statistics, chart, histogram);
+            isTableShowChecked = showOptions[0].checked;
+            saveVariationToPDF(statistics, chart, histogram, isTableShowChecked);
             break;
     }
 });
