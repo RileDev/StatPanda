@@ -87,7 +87,18 @@ generateBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => clearContents())
 
 exportPDFBtn.addEventListener("click", () => {
-    saveFreqDistToPDF(statistics, chart);
+    const statisticsType = generateBtn.dataset.type;
+    switch(statisticsType){
+        case "freq-dist":
+            saveFreqDistToPDF(statistics, chart);
+            break;
+        case "tendency":
+            console.log("Call saveTendencyToPDF() method.");
+            break;
+        case "variation":
+            console.log("Call saveVariationToPDF() method.");
+            break;
+    }
 });
 
 const clearContents = () => {
