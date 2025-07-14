@@ -302,6 +302,8 @@ export const displayHistogram = (data, type = "tendency") => {
       }
     }
   });
+
+  return histogramInstance;
 };
 
 

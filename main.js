@@ -4,7 +4,7 @@ import { displayTable } from "./js/table-render.js";
 import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayBoxplot, displayChart, displayHistogram } from "./js/chart-render.js";
 import { displayInfo } from "./js/info-render.js";
-import { saveFreqDistToPDF } from "./js/pdf-export.js";
+import { saveFreqDistToPDF, saveTendencyToPDF, saveVariationToPDF } from "./js/pdf-export.js";
 import { Tendency } from "./js/classes/tendency.js";
 import { Variation } from "./js/classes/variation.js";
 
@@ -21,6 +21,7 @@ const intervalCb = document.getElementById("intervalCb");
 const uploadedMessage = document.getElementById("uploaded-message");
 
 let statistics = null;
+let histogram = null
 let chart = null;
 
 
@@ -46,20 +47,22 @@ generateBtn.addEventListener("click", () => {
         case "tendency":
             statistics = new Tendency(data, groupedData);
             displayInfo(statistics.json);
-            if (showOptions[0].checked)
+            if (showOptions[0].checked) //show dropdown -> table checkbox
                 displayTable(statistics.json);
             else
                 displayTable(null);
-            if (showOptions[1].checked)
+            if (showOptions[1].checked) //show dropdown -> boxplot checkbox
                 chart = displayBoxplot(statistics.json, statisticsType);
             else {
                 chart = null;
                 displayBoxplot(null);
             }
-            if (showOptions[2].checked)
-                displayHistogram(statistics.json, statisticsType)
-            else
+            if (showOptions[2].checked) //show dropdown -> histogram checkbox
+                histogram = displayHistogram(statistics.json, statisticsType)
+            else{
                 displayHistogram(null)
+                histogram = null;
+            }
             break;
 
         case "variation":
@@ -76,10 +79,13 @@ generateBtn.addEventListener("click", () => {
                 displayBoxplot(null);
             }
             if (showOptions[2].checked)
-                displayHistogram(statistics.json, statisticsType)
-            else
+                histogram = displayHistogram(statistics.json, statisticsType)
+            else{
                 displayHistogram(null)
+                histogram = null;
+            }
             break;
+            
     }
 
 })
@@ -87,7 +93,21 @@ generateBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => clearContents())
 
 exportPDFBtn.addEventListener("click", () => {
-    saveFreqDistToPDF(statistics, chart);
+    const statisticsType = generateBtn.dataset.type;
+    let isTableShowChecked = null;
+    switch(statisticsType){
+        case "freq-dist":
+            saveFreqDistToPDF(statistics, chart);
+            break;
+        case "tendency":
+            isTableShowChecked = showOptions[0].checked;
+            saveTendencyToPDF(statistics, chart, histogram, isTableShowChecked);
+            break;
+        case "variation":
+            isTableShowChecked = showOptions[0].checked;
+            saveVariationToPDF(statistics, chart, histogram, isTableShowChecked);
+            break;
+    }
 });
 
 const clearContents = () => {
