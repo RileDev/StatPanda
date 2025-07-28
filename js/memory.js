@@ -19,7 +19,7 @@ export function saveSampleDataInMemory(data) {
 
 export function loadSampleDataFromMemory(){    
     if(!document.cookie){
-        alert("There's no samples in the memory :(");
+        alert("There are no samples in the memory :(");
         return null;
     }
 
