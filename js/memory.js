@@ -6,11 +6,23 @@ export function saveSampleDataInMemory(data) {
         alert("Couldn't save 0 samples in the memory :(");
         return;
     }
-    setCookie(COOKIE_NAME, data, COOKIE_DURATION);
+    if(!document.cookie)
+        setCookie(COOKIE_NAME, data, COOKIE_DURATION);
+    else{
+        if(confirm("Are you sure you want to overwrite your existing data in the memory?")){
+            setCookie(COOKIE_NAME, data, COOKIE_DURATION);
+        }else return;
+    }
+
     alert("Samples are successfully saved in the memory!");
 }
 
-export function loadSampleDataFromMemory(){
+export function loadSampleDataFromMemory(){    
+    if(!document.cookie){
+        alert("There's no samples in the memory :(");
+        return null;
+    }
+
     return getCookie(COOKIE_NAME);
 }
 
