@@ -1,5 +1,5 @@
 import { FrequencyDistribution } from "./js/classes/frequency-distribution.js";
-import { generateSampleFields, fetchData, clearSampleFields } from "./js/samples.js"
+import { generateSampleFields, fetchData, clearSampleFields, displayUploadedSamples } from "./js/samples.js"
 import { displayTable } from "./js/table-render.js";
 import { clearUploadedMessage, readFromFile } from "./js/file-stream.js";
 import { displayBoxplot, displayChart, displayHistogram } from "./js/chart-render.js";
@@ -7,8 +7,11 @@ import { displayInfo } from "./js/info-render.js";
 import { saveFreqDistToPDF, saveTendencyToPDF, saveVariationToPDF } from "./js/pdf-export.js";
 import { Tendency } from "./js/classes/tendency.js";
 import { Variation } from "./js/classes/variation.js";
+import { loadSampleDataFromMemory, saveSampleDataInMemory } from "./js/memory.js";
 
 const addBtn = document.getElementById("addBtn");
+const memoryBtn = document.getElementById("memoryBtn");
+const loadBtn = document.getElementById("loadBtn");
 const generateBtn = document.getElementById("generateBtn");
 const fileInput = document.getElementById("fileInput");
 const clearBtn = document.getElementById("clearBtn");
@@ -18,7 +21,7 @@ const showOptions = document.querySelectorAll(".show-option");
 const nSamples = document.getElementById("nSamples");
 const intervalCb = document.getElementById("intervalCb");
 
-const uploadedMessage = document.getElementById("uploaded-message");
+// const uploadedMessage = document.getElementById("uploaded-message");
 
 let statistics = null;
 let histogram = null
@@ -26,6 +29,17 @@ let chart = null;
 
 
 addBtn.addEventListener("click", () => generateSampleFields(parseInt(nSamples.value, 10)));
+
+memoryBtn.addEventListener("click", () => {
+    const data = fetchData();
+    saveSampleDataInMemory(data);
+});
+
+loadBtn.addEventListener("click", () => {
+    const rawData = loadSampleDataFromMemory().split(',');
+    const data = rawData.map(e => parseInt(e));
+    displayUploadedSamples(data);
+});
 
 fileInput.addEventListener("change", e => {
     readFromFile(e);

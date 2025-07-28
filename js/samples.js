@@ -1,5 +1,6 @@
 const LIMIT = 500;
-const inputsWrapper = document.querySelector(".input-samples");
+const inputsWrapper = document.querySelector(".input-samples .samples");
+const memoryBtnWrapper = document.querySelector(".memory-btn-container #memoryBtn");
 
 let canInputFieldsBeRendered = true;
 let uploadedData = [];
@@ -20,6 +21,8 @@ export function generateSampleFields(n) {
         inputEl.setAttribute('aria-label', `Sample ${i + 1}`);
         inputsWrapper.appendChild(inputEl);
     }
+
+    memoryBtnWrapper.classList.add("display");
     if (inputsWrapper.firstChild) inputsWrapper.firstChild.focus();
 }
 
@@ -36,6 +39,7 @@ export function fetchData() {
 
 export function clearSampleFields() {
     inputsWrapper.innerHTML = "";
+    memoryBtnWrapper.classList.remove("display");
     canInputFieldsBeRendered = true;
     uploadedData = [];
 }
@@ -66,5 +70,6 @@ export function displayUploadedSamples(arr) {
         inputEl.setAttribute('aria-label', `Sample ${i + 1}`);
         inputsWrapper.appendChild(inputEl);
     }
+    memoryBtnWrapper.classList.add("display");
     if (inputsWrapper.firstChild) inputsWrapper.firstChild.focus();
 }
