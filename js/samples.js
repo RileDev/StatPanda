@@ -6,6 +6,7 @@ let canInputFieldsBeRendered = true;
 let uploadedData = [];
 
 export function generateSampleFields(n) {
+    if(!n || n <= 0) return;
     if (n > LIMIT) {
         alert(`You cannot generate more fields than the limit (${LIMIT}). Try uploading a file instead.`);
         return;
@@ -45,6 +46,7 @@ export function clearSampleFields() {
 }
 
 export function displayUploadedSamples(arr) {
+    if(arr.length == 0) return;
     uploadedData = [];
     if (arr.length > LIMIT) {
         canInputFieldsBeRendered = false;

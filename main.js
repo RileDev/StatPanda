@@ -36,7 +36,7 @@ memoryBtn.addEventListener("click", () => {
 });
 
 loadBtn.addEventListener("click", () => {
-    const rawData = loadSampleDataFromMemory().split(',');
+    const rawData = (loadSampleDataFromMemory()) ? loadSampleDataFromMemory().split(',') : [];
     const data = rawData.map(e => parseInt(e));
     displayUploadedSamples(data);
 });
